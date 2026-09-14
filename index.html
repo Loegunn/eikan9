@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="zh-HK"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>榮冠九人</title>
+<style>
+:root{
+  --bg:#eef5fc; --paper:#ffffff;
+  --blue:#1668cc; --blue-d:#0d4d9e; --blue-l:#dbeafd; --sky:#54a8f2;
+  --ink:#16324f; --ink2:#4a6b8a; --ink3:#7d95ae;
+  --lime:#4fae43; --sun:#ffc531; --rose:#ef4a63;
+  --gS:#ff4d9d; --gA:#ef4056; --gB:#f2698c; --gC:#f0891f;
+  --gD:#cfa81a; --gE:#4fae43; --gF:#6f8ba8; --gG:#93a7bb;
+  --r:12px;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Hiragino Sans","Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
+  font-size:16px;line-height:1.72;font-variant-numeric:tabular-nums}
+.wrap{max-width:880px;margin:0 auto;padding:0 15px 72px}
+
+header{background:linear-gradient(180deg,var(--blue) 0%,var(--blue-d) 100%);
+  padding:20px 15px 17px;position:relative;overflow:hidden}
+header:before{content:"";position:absolute;top:-40px;right:-30px;width:190px;height:190px;
+  background:rgba(255,255,255,.09);transform:rotate(45deg);border-radius:26px}
+header:after{content:"";position:absolute;left:0;right:0;bottom:0;height:5px;
+  background:repeating-linear-gradient(90deg,var(--sun) 0 26px,var(--rose) 26px 52px)}
+.hd{max-width:880px;margin:0 auto;position:relative}
+h1{margin:0;font-size:clamp(28px,8vw,44px);font-weight:900;letter-spacing:.1em;
+  color:#fff;text-shadow:0 3px 0 rgba(0,0,0,.22)}
+.sub{margin:3px 0 0;color:rgba(255,255,255,.86);font-size:13.5px;letter-spacing:.04em}
+
+nav.tabs{background:var(--blue-d);position:sticky;top:0;z-index:20;display:none;
+  padding-top:6px}
+nav.tabs .inner{max-width:880px;margin:0 auto;display:flex;gap:5px;padding:0 8px;
+  overflow-x:auto;scrollbar-width:none}
+nav.tabs .inner::-webkit-scrollbar{display:none}
+.tab{flex:0 0 auto;background:rgba(255,255,255,.14);border:0;
+  border-radius:9px 9px 0 0;color:rgba(255,255,255,.8);font:inherit;font-weight:700;
+  font-size:14px;padding:9px 15px;cursor:pointer;white-space:nowrap}
+.tab:hover{background:rgba(255,255,255,.26);color:#fff}
+.tab[aria-current="true"]{background:var(--bg);color:var(--blue-d)}
+
+#home{padding-top:22px}
+.lead{color:var(--ink2);margin:0 0 16px;font-size:15px}
+.lineup{display:flex;width:100%;gap:13px;align-items:center;text-align:left;
+  background:var(--paper);border:2px solid #cfe0f2;border-bottom-width:4px;
+  border-radius:var(--r);color:inherit;font:inherit;padding:12px 14px;cursor:pointer;
+  margin-bottom:9px;transition:transform .12s,border-color .12s}
+.lineup:hover{border-color:var(--sky);transform:translateY(-2px)}
+.lineup:active{transform:translateY(1px);border-bottom-width:2px}
+.num{flex:0 0 34px;height:34px;line-height:32px;text-align:center;
+  background:var(--blue);color:#fff;font-weight:900;font-size:16px;border-radius:9px;
+  box-shadow:0 2px 0 var(--blue-d)}
+.lt b{display:block;font-size:18px;font-weight:800;letter-spacing:.02em}
+.lt em{display:block;font-style:normal;color:var(--ink2);font-size:13.5px;margin-top:1px}
+
+.view{display:none;padding-top:20px}
+.view h2{font-size:23px;margin:0 0 14px;font-weight:900;letter-spacing:.04em;
+  color:var(--blue-d);display:flex;align-items:center;gap:9px}
+.view h2:before{content:"";width:13px;height:26px;background:var(--sun);
+  border-radius:3px;box-shadow:5px 0 0 var(--rose)}
+.view h3{font-size:17px;margin:26px 0 8px;color:var(--blue-d);font-weight:800}
+.lede{margin:0 0 15px;background:var(--paper);border:2px solid #cfe0f2;
+  border-radius:var(--r);padding:12px 14px}
+.note{color:var(--ink2);font-size:14px;border-left:4px solid var(--sky);
+  background:var(--blue-l);border-radius:0 8px 8px 0;padding:9px 13px;margin:13px 0}
+.warn{color:#c02c44;font-size:14.5px;font-weight:600}
+.best{color:#b45c00;font-weight:800}
+.alert{background:#fff2f4;border:2px solid #ffc3cd;border-left-width:6px;
+  border-radius:var(--r);padding:11px 14px;margin:14px 0;font-size:14.5px}
+ul,ol{padding-left:22px;margin:9px 0}
+li{margin:5px 0}
+p{margin:9px 0}
+.role{background:var(--paper);border:2px solid #cfe0f2;border-radius:var(--r);
+  padding:4px 15px 14px;margin-top:18px}
+.core{color:var(--ink2);font-size:14.5px;margin:2px 0 10px}
+
+.scroll{overflow-x:auto;margin:10px 0;-webkit-overflow-scrolling:touch;
+  background:var(--paper);border:2px solid #cfe0f2;border-radius:var(--r)}
+table{border-collapse:collapse;width:100%;font-size:14.5px;min-width:min(100%,520px)}
+th{background:var(--blue);color:#fff;text-align:left;font-weight:800;
+  padding:9px 11px;white-space:nowrap;border-right:1px solid rgba(255,255,255,.22)}
+th:last-child{border-right:0}
+td{padding:8px 11px;border-top:1px solid #e2ecf7;vertical-align:top}
+tbody tr:nth-child(even){background:#f6fafe}
+table.grid td{text-align:center;white-space:nowrap}
+table.grid td:first-child{text-align:left;font-weight:700}
+
+.g{display:inline-block;min-width:23px;padding:0 5px;border-radius:5px;
+  color:#fff;font-weight:900;font-size:14px;text-align:center}
+.gS{background:var(--gS)}.gA{background:var(--gA)}.gB{background:var(--gB)}
+.gC{background:var(--gC)}.gD{background:var(--gD)}.gE{background:var(--gE)}
+.gF{background:var(--gF)}.gG{background:var(--gG)}
+
+.tag{display:inline-block;font-size:11.5px;padding:2px 8px;border-radius:20px;
+  font-weight:800;vertical-align:2px;white-space:nowrap;color:#fff}
+.t26{background:var(--lime)}
+.t22{background:#96866a}
+.tex{background:var(--sky)}
+.tmy{background:#9481b0}
+
+.pills{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 15px}
+.pill{background:var(--paper);border:2px solid #cfe0f2;border-bottom-width:3px;
+  color:var(--ink2);font:inherit;font-weight:700;font-size:14px;padding:6px 14px;
+  border-radius:20px;cursor:pointer}
+.pill:hover{border-color:var(--sky)}
+.pill[aria-pressed="true"]{background:var(--blue);color:#fff;border-color:var(--blue-d)}
+
+.filters{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0;background:var(--paper);
+  border:2px solid #cfe0f2;border-radius:var(--r);padding:13px 14px}
+.filters label{display:flex;flex-direction:column;gap:3px;font-size:12.5px;
+  color:var(--ink2);font-weight:700}
+.filters input,.filters select{background:#fff;color:var(--ink);
+  border:2px solid #cfe0f2;border-radius:8px;padding:7px 9px;font:inherit;
+  font-size:15px;min-width:118px}
+.filters input:focus,.filters select:focus{border-color:var(--sky)}
+#fn{min-width:170px}
+#clearY{align-self:flex-end;background:var(--sun);color:#5b4200;
+  border:0;border-bottom:3px solid #d69f00;border-radius:9px;padding:8px 15px;
+  font:inherit;font-weight:800;font-size:14px;cursor:pointer}
+#clearY:active{border-bottom-width:1px}
+.cnt{color:var(--blue-d);font-weight:900;font-size:17px;margin:8px 0 2px}
+.hi{color:var(--gA);font-weight:900}
+
+:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){
+  .lineup{transition:none}
+}
+@media (prefers-reduced-motion:no-preference){
+  .view,#home{animation:in .18s ease-out}
+  @keyframes in{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+}
+footer{max-width:880px;margin:0 auto;padding:24px 15px 40px;color:var(--ink3);
+  font-size:12.5px}
+.planner-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:12px}.planner-grid label{display:flex;flex-direction:column;font-size:14px;font-weight:700}.planner-grid input,.planner-grid select{width:100%;min-width:0;padding:10px;border:1px solid #9cb9d6;border-radius:8px;font:inherit;background:white;color:var(--ink)}fieldset{min-width:0;border:1px solid #cfe0f2;border-radius:10px;margin:14px 0;padding:14px}legend{font-weight:800;color:var(--blue-d)}.actions{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}.next-action{font-size:clamp(24px,6vw,32px);color:var(--blue-d);font-weight:900;overflow-wrap:anywhere}.result-card{background:#fff;border:2px solid var(--blue);border-radius:12px;padding:18px;margin-top:18px}a{color:var(--blue-d);text-underline-offset:3px}.source-list li{margin-bottom:15px;overflow-wrap:anywhere}[hidden]{display:none!important}#planner-error{color:#a01f37}button{touch-action:manipulation}
+</style></head><body>
+
+<header><div class="hd">
+<h1>榮冠九人</h1>
+<p class="sub">實況力量野球 2026-2027　栄冠ナイン</p>
+</div></header>
+
+<nav class="tabs" id="tabs"><div class="inner">
+<button class="tab" data-go="planner">下一項練乜</button><button class="tab" data-go="sources">參考網址</button><button class="tab" data-go="home">打順表</button><button class="tab" data-go="read-first">睇之前要知</button><button class="tab" data-go="targets">位置別目標</button><button class="tab" data-go="steps">育成步驟</button><button class="tab" data-go="icons">進行圖示</button><button class="tab" data-go="skills">特能一覽</button><button class="tab" data-go="homerun">全壘打主砲</button><button class="tab" data-go="roles">其他定位</button><button class="tab" data-go="tensei">轉生選手查詢</button><button class="tab" data-go="quick">三年模式速查</button>
+</div></nav>
+
+<div class="wrap">
+<section id="home">
+<p class="lead">先睇下一項練乜，再按需要查九個攻略部分。</p><button class="lineup" data-go="planner"><span class="num">★</span><span class="lt"><b>我隻球員下一項練乜？</b><em>輸入能力 · 基礎／進階 · 日文練習名</em></span></button><button class="lineup" data-go="sources"><span class="num">↗</span><span class="lt"><b>參考網址與版本</b><em>來源支持乜、邊啲係本站建議</em></span></button>
+<button class="lineup" data-go="read-first"><span class="num">1</span><span class="lt"><b>睇之前要知</b><em>四個可信度標籤同幾個陷阱</em></span></button><button class="lineup" data-go="targets"><span class="num">2</span><span class="lt"><b>位置別目標</b><em>七個位置嘅中途同最終能力目標</em></span></button><button class="lineup" data-go="steps"><span class="num">3</span><span class="lt"><b>育成步驟</b><em>按位置查參考路線，可按短板調整</em></span></button><button class="lineup" data-go="icons"><span class="num">4</span><span class="lt"><b>進行圖示</b><em>每張圖示加乜，同兩個乘數機制</em></span></button><button class="lineup" data-go="skills"><span class="num">5</span><span class="lt"><b>特能一覽</b><em>推薦特殊能力同互斥關係</em></span></button><button class="lineup" data-go="homerun"><span class="num">6</span><span class="lt"><b>全壘打主砲</b><em>想打全壘打要練幾多、點練</em></span></button><button class="lineup" data-go="roles"><span class="num">7</span><span class="lt"><b>其他定位</b><em>安打上壘、快腿盜壘、守備型</em></span></button><button class="lineup" data-go="tensei"><span class="num">8</span><span class="lt"><b>轉生選手查詢</b><em>按年份、地區、位置搵轉生選手</em></span></button><button class="lineup" data-go="quick"><span class="num">9</span><span class="lt"><b>三年模式速查</b><em>共通優先次序同日中對照</em></span></button>
+</section>
+<section class="view" id="v-planner"><h2>下一項練乜？</h2>
+<p class="lede">先補影響上場嘅短板，再按定位分流。輸入現有能力，取得一項日文練習指示同後續檢查點。門檻係本站建議，唔係官方公式。</p>
+<p class="note">「全員に対し練習指示します」係對所選組別批量下指示。投手／野手／捕手／內野／外野係篩選範圍，唔代表各組永遠練同一項。混合能力嘅球員，建議逐人設定。</p>
+<form id="planner-form" novalidate><div class="planner-grid">
+<label>守備位置<select id="plan-pos"><option>一壘手</option><option>捕手</option><option>二壘手</option><option>三壘手</option><option>游擊手</option><option>左外野</option><option>中外野</option><option>右外野</option><option>投手</option></select></label>
+<label>育成定位<select id="plan-role"><option value="basic">基礎：補短板</option><option value="hr">進階：全壘打主砲</option><option value="hit">進階：安打上壘</option><option value="run">進階：快腿</option><option value="def">進階：守備</option></select></label>
+</div>
+<fieldset id="batter-fields"><legend>野手能力</legend><div class="planner-grid" id="batter-inputs"></div><div class="planner-grid">
+<label>パワーヒッター／アーチスト<select id="plan-ph"><option value="unknown">未確認</option><option value="no">兩者都冇</option><option value="yes">有其中一個</option></select></label>
+<label>キャッチャー（捕手特能）<select id="plan-catcher"><option>未確認</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option></select></label>
+<label>送球（傳球特能）<select id="plan-throw"><option>未確認</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option></select></label>
+</div></fieldset>
+<fieldset id="pitcher-fields" hidden><legend>投手能力</legend><label>用途 <select id="plan-pitch-role"><option value="starter">先發</option><option value="relief">短局數後援</option></select></label><div class="planner-grid" id="pitcher-inputs"></div></fieldset>
+<div class="actions"><button class="pill" type="submit">睇練習建議</button><button class="pill" type="button" id="example-kasai">載入葛西範例</button><button class="pill" type="button" id="example-catcher">載入捕手範例</button></div>
+<p id="planner-error" role="alert"></p></form><p id="storage-note" class="note">選項會嘗試儲存喺目前瀏覽器；換裝置或清除瀏覽資料後需重新輸入。</p><div id="planner-result" aria-live="polite"></div>
+</section>
+<section class="view" id="v-sources"><h2>參考網址與版本</h2>
+<p class="lede">整理日期：2026-09-14。2026 攻略參考係第三方攻略，唔等同官方保證。本站嘅基礎／進階門檻同動態建議屬育成取捨。</p>
+<ul class="source-list">
+<li><a href="https://game8.jp/eikan-nine/554658">Game8：栄冠ナイン育成攻略</a> — 2026–2027 通用路線、位置能力方向。本站保留路線作參考，唔要求全部球員依序完成。</li>
+<li><a href="https://game8.jp/eikan-nine/554854">Game8：個別練習</a> — 個人練習與育成選擇；同日程上嘅進行圖示分開理解。</li>
+<li><a href="https://saiseikojo.com/eikan-kouryaku-xp/">ゲーミング再生工場：能力成長所需經驗值</a> — 2024 成本表。跑力／肩力／守備力屬同組，捕球／耐力成本較低；未驗證可直接套用 2026。</li>
+<li><a href="https://game8.jp/eikan-nine/628776">Game8：パワーヒッター</a>、<a href="https://game8.jp/eikan-nine/628777">プルヒッター</a>、<a href="https://game8.jp/eikan-nine/628778">広角打法</a> — 長打特能效果與取捨；唔支持「主砲唔可以有廣角」結論。</li>
+<li><a href="https://appmedia.jp/pawapuro2026-2027/80070061">AppMedia：新入生球探</a> — 招募與球探評價參考，入學後仍要檢查實值同特能。</li></ul>
+<div class="alert">未逐項核實：原檔 401 名球員資料、部分活動日期／特訓抽選細項，以及無原始網址嘅玩家實測。原檔標示只代表資料來源分類；以上連結唔代表對全站每個數字背書。轉生入學年推論亦有保留標註。</div>
+<p>建議助手唔計訓練日數、經驗倍率或全壘打機率；未輸入嘅特能唔當成冇。達標後會停下來叫你按實戰再決定，唔會無限叫所有人練到 S。</p></section>
+<section class="view" id="v-read-first"><h2>睇之前要知</h2>
+<p class="lede">呢個網站係廣東話寫嘅榮冠九人（栄冠ナイン）攻略。資料嚟自唔同來源，可信度差好遠，所以每一段都標咗級別。睇之前先認一認呢四個標籤。</p>
+<div class="scroll"><table class=""><thead><tr><th>標籤</th><th>意思</th></tr></thead><tbody><tr><td><span class="tag t26">2026攻略參考</span></td><td>Game8 2026-2027 版攻略支持嘅育成方向、目標、戰術條件</td></tr><tr><td><span class="tag t22">2024成本參考</span></td><td>沿用《パワプロ2024》嘅經驗值成本表。只適合做相對比較，唔係實際天數</td></tr><tr><td><span class="tag tex">玩家實測</span></td><td>少量樣本、單一存檔嘅測試結論。當方向參考，唔係硬規則</td></tr><tr><td><span class="tag tmy">個人推論</span></td><td>本站自己制定嘅門檻同評級。按你自己打法調整</td></tr></tbody></table></div>
+<h3>幾樣特別要小心</h3>
+<ul>
+<li><b>成本來源係 2024 版。</b>只供比較能力之間嘅投入，未驗證適用於 2026；唔可以直接換算練習日數。</li>
+<li><b>「彈道3最差」係單次實測。</b>有玩家開三年目存檔分四隊平行測試，結論係彈道3飛球結果最差。樣本一隊，未必適用於所有選手、場地、對手同版本。</li>
+<li><b>戰力數字按字母平均</b>呢點 Game8 有寫，即係嗰個戰力數值入面 D50 同 D59 一樣。但冇證據話所有實戰判定（打擊結果、守備成功率）都只讀字母級。</li>
+<li><b>轉生選手嘅「入學年」係推論。</b>原表第四欄冇標題，對照現實入學年全部對得上，但原作者冇明寫。</li>
+</ul>
+</section><section class="view" id="v-targets"><h2>位置別目標</h2><p class="lede">以下保留 Game8 偏重安打、機動力嘅參考路線，唔係所有球員必須跟嘅規則。先睇當前短板、守位同定位；主砲可以提早練力量。用「下一項練乜」取得個別建議。</p><h3>Game8 通用路線參考目標 <span class="tag t26">2026攻略參考</span></h3><div class="scroll"><table class="grid"><thead><tr><th>位置</th><th>彈道</th><th>擊球準度</th><th>力量</th><th>跑力</th><th>肩力</th><th>守備力</th><th>捕球</th></tr></thead><tbody><tr><td>捕手</td><td>1</td><td><span class="g gC">C</span></td><td>—</td><td><span class="g gC">C</span></td><td><span class="g gC">C</span></td><td>—</td><td><span class="g gD">D</span></td></tr><tr><td>一壘手</td><td>1</td><td><span class="g gC">C</span></td><td>—</td><td><span class="g gB">B</span></td><td>—</td><td>—</td><td><span class="g gE">E</span></td></tr><tr><td>二壘手</td><td>1</td><td><span class="g gC">C</span></td><td>—</td><td><span class="g gC">C</span></td><td>—</td><td><span class="g gC">C</span></td><td><span class="g gE">E</span></td></tr><tr><td>三壘手</td><td>1</td><td><span class="g gC">C</span></td><td>—</td><td><span class="g gC">C</span></td><td><span class="g gC">C</span></td><td>—</td><td><span class="g gE">E</span></td></tr><tr><td>游擊手</td><td>1</td><td><span class="g gC">C</span></td><td>—</td><td><span class="g gC">C</span></td><td><span class="g gC">C</span></td><td><span class="g gC">C</span></td><td><span class="g gE">E</span></td></tr><tr><td>外野手</td><td>1</td><td><span class="g gB">B</span></td><td>—</td><td><span class="g gB">B</span></td><td>—</td><td>—</td><td>—</td></tr></tbody></table></div><h3>長線／高場地等級最終目標 <span class="tag t26">2026攻略參考</span></h3><div class="scroll"><table class="grid"><thead><tr><th>位置</th><th>彈道</th><th>擊球準度</th><th>力量</th><th>跑力</th><th>肩力</th><th>守備力</th><th>捕球</th></tr></thead><tbody><tr><td>捕手</td><td>2</td><td><span class="g gA">A</span></td><td><span class="g gC">C</span></td><td><span class="g gA">A</span></td><td><span class="g gA">A</span></td><td><span class="g gC">C</span></td><td><span class="g gC">C</span></td></tr><tr><td>一壘手</td><td>2</td><td><span class="g gA">A</span></td><td><span class="g gC">C</span></td><td><span class="g gA">A</span></td><td><span class="g gC">C</span></td><td><span class="g gC">C</span></td><td><span class="g gC">C</span></td></tr><tr><td>二壘手</td><td>2</td><td><span class="g gA">A</span></td><td><span class="g gC">C</span></td><td><span class="g gA">A</span></td><td><span class="g gC">C</span></td><td><span class="g gA">A</span></td><td><span class="g gC">C</span></td></tr><tr><td>三壘手</td><td>2</td><td><span class="g gA">A</span></td><td><span class="g gC">C</span></td><td><span class="g gA">A</span></td><td><span class="g gA">A</span></td><td><span class="g gC">C</span></td><td><span class="g gC">C</span></td></tr><tr><td>游擊手</td><td>2</td><td><span class="g gA">A</span></td><td><span class="g gC">C</span></td><td><span class="g gA">A</span></td><td><span class="g gB">B</span></td><td><span class="g gA">A</span></td><td><span class="g gC">C</span></td></tr><tr><td>外野手</td><td>2</td><td><span class="g gA">A</span></td><td><span class="g gC">C</span></td><td><span class="g gA">A</span></td><td><span class="g gC">C</span></td><td><span class="g gC">C</span></td><td><span class="g gC">C</span></td></tr></tbody></table></div>
+<h3>三年模式共通優先次序</h3>
+<ol>
+<li>先補明顯弱項。基本能力有 F 嗰陣，優先補到 E 左右。</li>
+<li>多數野手先將跑力同擊球準度推到 C，之後再推向 B。</li>
+<li>二壘手、游擊手要較早補守備力到 C。</li>
+<li>捕手、三壘手要較早補肩力到 C。捕手亦要留意捕球同 キャッチャー 特能。</li>
+<li>游擊手、三壘手要檢查送球。最少 D，最好 C 以上。</li>
+<li>資源有限，先以能贏波、能減少危機局面嘅能力為主，唔使強行追求所有人全 A。</li>
+</ol>
+<h3>投手目標</h3>
+<p>普通選手（モブ）：球速 148、控球 A、耐力 C、4 球種、總變化量 10。<br>
+轉生OB 或者長線重點培養：球速 155、控球 S、耐力 B、4 球種、總變化量 10。</p>
+<p class="note">標準攻略多數以彈道 2、力量 C 做通用終點，屬於偏重穩定上壘同機動力嘅方向，唔係唯一玩法。要養長打主砲要另行加碼。</p>
+</section><section class="view" id="v-steps"><h2>育成步驟</h2><p class="lede">以下係通用攻略參考次序，可以跳過已達標項目，亦可以按短板、剩餘時間同定位提早分流；唔使行完整條路線先養主砲。</p><div class="pills" id="stepPills"></div><div id="stepBox"></div><p class="note">游擊手原文嘅「ミート、走力をBまで上げる」出現咗兩次，第二次當作重複項跳過，所以由 12 步整理成 11 步。</p></section><section class="view" id="v-icons"><h2>進行圖示</h2><p class="lede">Game8 2026 只公開排序，冇具體數字。下面由左至右＝經驗由少到多，<b>最右嗰張基礎經驗較多</b>，實際選擇仲要睇日數、體力同落點。</p><div class="scroll"><table class="grid"><thead><tr><th>能力線</th><th>① 最少</th><th>②</th><th>③</th><th>④ 最多</th></tr></thead><tbody><tr><td>擊球準度</td><td>素振り</td><td>ミートバッティング</td><td>ティーバッティング</td><td><b class="best">マシン打撃</b></td></tr><tr><td>力量</td><td>腕立て腹筋</td><td>指立て伏せ</td><td>ダンベル</td><td><b class="best">ベンチプレス</b></td></tr><tr><td>跑壘</td><td>ダッシュ</td><td>インターバル走</td><td>ベースランニング</td><td><b class="best">ハードル</b></td></tr><tr><td>肩力</td><td>スローイング</td><td>遠投</td><td>チューブトレーニング</td><td><b class="best">ラットマシン</b></td></tr><tr><td>守備力</td><td>ペッパー</td><td>守備連携</td><td>ノック</td><td><b class="best">マシンガンノック</b></td></tr><tr><td>捕球</td><td>座禅</td><td>メンタルトレーニング</td><td>アロマテラピー</td><td><b class="best">いやしのひととき</b></td></tr><tr><td>球速</td><td>フォームチェック球速</td><td>投げ込み</td><td>球速測定</td><td><b class="best">マッスラー</b></td></tr><tr><td>控球</td><td>フォームチェック制球</td><td>コース投げ込み</td><td>的当て</td><td><b class="best">コース的当て</b></td></tr><tr><td>耐力</td><td>スクワット</td><td>走り込み</td><td>タイヤ引き</td><td><b class="best">ローラー</b></td></tr><tr><td>變化球</td><td>フォームチェック変</td><td>変化球投げ込み</td><td>握力強化</td><td><b class="best">変化球探求</b></td></tr></tbody></table></div><h3>其他圖示</h3><div class="scroll"><table class=""><thead><tr><th>圖示</th><th>中文</th><th>加乜</th></tr></thead><tbody><tr><td><b class="best">総合練習</b></td><td>綜合練習</td><td>全能力 ＋小</td></tr><tr><td>バント練習</td><td>短打練習</td><td>擊球準度、跑力、捕球 ＋小</td></tr><tr><td>ストレッチ</td><td>伸展</td><td>力量 ＋小、球速 ＋中、耐力 ＋中</td></tr><tr><td><b class="best">特打</b></td><td>特別打擊</td><td>擊球準度 ＋大、力量 ＋大</td></tr><tr><td><b class="best">特守</b></td><td>特別守備</td><td>守備力 ＋大、捕球 ＋大</td></tr></tbody></table></div>
+<p class="note">総合練習、特打、特守 Game8 明寫總經驗特別多，配合需要、日數同落點優先考慮。特打同特守有出現條件，要配合球隊方針同場地器材。</p>
+<h3>兩個機制，比上面嘅表更重要 <span class="tag t26">2026攻略參考</span></h3>
+<ol>
+<li><b>經驗 ＝ 圖示嘅經驗量 × 前進日數。</b>兩樣乘埋計，所以圖示上面個數字同揀邊張一樣重要。</li>
+<li><b>アイドル 格同 観戦 圖示會提升「下一次」練習嘅效果。</b>正確用法係先撞アイドル或者用観戦，跟住立即用一張大數字＋高經驗嘅圖示。次序調錯就浪費。</li>
+</ol>
+<h3>要停嘅活動格日期 <span class="tag t26">2026攻略參考</span></h3>
+<div class="scroll"><table class=""><thead><tr><th>日期</th><th>效果</th></tr></thead><tbody><tr><td><b>6/26–7/2　9/8–9/14</b></td><td><b class="warn">藍格隨機發生。選項可以攞經驗值，同時消赤特</b></td></tr><tr><td>7/21–7/30　2/1–2/10</td><td>藍格，甲子園決定後隨機發生。選項可攞經驗值同特能</td></tr><tr><td>8/21</td><td>機率出特訓格</td></tr><tr><td>12/24</td><td>平安夜。練習效果up、士氣up 等隨機發生</td></tr><tr><td>2/28 或 2/29</td><td>確定出特訓格</td></tr><tr><td>4/1</td><td>新2年生同新3年生嘅練習效率小幅up</td></tr></tbody></table></div>
+<p class="note">消赤特有兩個 window。另外畢業生「本屋」格可以攞特能本，用對應嘅青特本可以覆蓋赤特，例如 対ピンチF ＋ 対ピンチの本 → 対ピンチE，赤特消失。畢業生「職業球員」格亦會機率消赤特，而且消除順序係赤特優先。</p>
+</section><section class="view" id="v-skills"><h2>特能一覽</h2><p class="lede">日文名＝遊戲畫面實際顯示嘅字。中文名係翻譯，遊戲入面搵唔到。具體加成數字未有 2026 實測佐證，所以用「明顯／中度」描述。</p><div class="alert">「捕球」係基本能力值。「キャッチャー」係特殊能力。兩者係唔同系統，升捕球唔會自動攞到 キャッチャー。キャッチャー E 以下唔係冇加成，而係會對投手有負面效果。</div><h3>投手・戰術等級6條件</h3><div class="scroll"><table class=""><thead><tr><th>日文名</th><th>中文</th><th>效果</th><th>開邊個戰術 Lv6</th></tr></thead><tbody><tr><td>緩急○</td><td>緩急</td><td>直球同慢球夾住投，能力上升</td><td>緩急重視</td></tr><tr><td>キレ○</td><td>球質銳利</td><td>變化球嘅銳度變好</td><td>打たせてとれ</td></tr><tr><td>内角攻め</td><td>內角攻擊</td><td>投內角嗰陣控球變好</td><td>内角中心</td></tr><tr><td>低め○</td><td>低球控制</td><td>低球嘅控球變好</td><td>低め中心</td></tr><tr><td>リリース○</td><td>出手隱蔽</td><td>直球同變化球投球動作一樣</td><td>緩急重視</td></tr></tbody></table></div><h3>投手・數值提升</h3><div class="scroll"><table class=""><thead><tr><th>日文名</th><th>中文</th><th>效果</th><th>開邊個戰術 Lv6</th></tr></thead><tbody><tr><td>対ピンチA</td><td>危機應對A</td><td>得點圈有跑者時，球速同變化量明顯提升</td><td></td></tr><tr><td>対左打者A</td><td>制左打A</td><td>對左打者，球速控球明顯提升，耗耐力大減</td><td></td></tr><tr><td>重い球</td><td>重球質</td><td>被打中都難飛遠</td><td></td></tr><tr><td>勝ち運</td><td>勝運</td><td>登板中，友方打者力量提升</td><td></td></tr><tr><td>尻上がり</td><td>後勁型</td><td>後段局數球速、變化量、控球提升</td><td></td></tr><tr><td>対強打者○</td><td>制強打</td><td>對強打者，球速同變化量中度提升</td><td></td></tr><tr><td>奪三振</td><td>奪三振</td><td>追到兩好球時，球速同變化量中度提升</td><td></td></tr></tbody></table></div><h3>捕手專用・E以下係負效果</h3><div class="scroll"><table class=""><thead><tr><th>日文名</th><th>中文</th><th>效果</th><th>開邊個戰術 Lv6</th></tr></thead><tbody><tr><td>球界の頭脳</td><td>球界頭腦（金特）</td><td>友方投手控球大幅提升、耗耐力明顯減少</td><td></td></tr><tr><td>キャッチャーA</td><td>捕手A</td><td>控球明顯提升、耗耐力大減</td><td></td></tr><tr><td>キャッチャーB</td><td>捕手B</td><td>控球中度提升、耗耐力中度減少</td><td></td></tr><tr><td>C 以下</td><td>—</td><td>C 以上先有正效果。E 以下會令投手控球下降、耗耐力增加</td><td></td></tr></tbody></table></div><h3>全隊想有一個</h3><div class="scroll"><table class=""><thead><tr><th>日文名</th><th>中文</th><th>效果</th><th>開邊個戰術 Lv6</th></tr></thead><tbody><tr><td>精神的支柱</td><td>精神支柱</td><td>友方投手控球提升、打者擊球準度同力量提升</td><td></td></tr><tr><td>ムード○</td><td>氣氛製造</td><td>友方野手擊球準度同力量小幅提升</td><td></td></tr></tbody></table></div><h3>野手</h3><div class="scroll"><table class=""><thead><tr><th>日文名</th><th>中文</th><th>效果</th><th>開邊個戰術 Lv6</th></tr></thead><tbody><tr><td>威圧感（野手）</td><td>壓迫感</td><td>對方投手球速控球下降、耗耐力增加</td><td></td></tr><tr><td>プルヒッター</td><td>拉打型</td><td>強振拉打時打出更強嘅打球</td><td>引っ張り</td></tr><tr><td>広角打法</td><td>廣角打法</td><td>推方向都打到強勁打球</td><td>流し打ち</td></tr><tr><td>アベレージヒッター</td><td>高打率型</td><td>用安打打法時易出安打性打球</td><td>センター返し</td></tr><tr><td>内野安打○</td><td>內野安打</td><td>打完之後起步快</td><td>転がせ／セーフティバント</td></tr><tr><td>流し打ち</td><td>推打</td><td>用安打打法推打易成安打</td><td>流し打ち</td></tr><tr><td>バント職人</td><td>短打職人</td><td>短打非常易成滾地球</td><td>バント系</td></tr><tr><td>バント○</td><td>短打</td><td>短打易成滾地球</td><td>バント系</td></tr><tr><td>盗塁A</td><td>盜壘A</td><td>盜壘時跑力大升，對方投手控球下降</td><td></td></tr><tr><td>チャンスA</td><td>得點圈A</td><td>得點圈有跑者時，擊球準度同力量明顯提升</td><td></td></tr></tbody></table></div><p class="note">プルヒッター 同 広角打法（同 広角砲）唔可以同時上身。主砲可以揀拉打或廣角方向；互斥唔代表広角打法唔適合全壘打。<br>意外性戰力係睇特能數量嘅平均，所以特能數量本身都有價值。</p></section><section class="view" id="v-homerun"><h2>全壘打主砲</h2>
+<p class="lede">以力量、彈道同擊球準度一齊考慮，再配合長打特能。以下數值係育成建議，唔係官方全壘打門檻，亦唔保證每場表現。</p>
+<div class="scroll"><table><thead><tr><th>階段</th><th>建議檢查點</th><th>個人練習日文</th></tr></thead><tbody>
+<tr><td>基礎</td><td>擊球準度先到 D50～C60，處理影響守位嘅嚴重短板</td><td>ミートアップ／對應守備練習</td></tr>
+<tr><td>起步</td><td>力量 C60；未有長打特能可將彈道升至 3</td><td>パワーアップ → 弾道アップ</td></tr>
+<tr><td>準主砲</td><td>力量 B70，擊球準度 C60～B70</td><td>パワーアップ／ミートアップ</td></tr>
+<tr><td>主砲</td><td>力量 A80，視特能、表現同資源考慮彈道 4</td><td>パワーアップ／弾道アップ</td></tr></tbody></table></div>
+<p class="note">彈道 3 唔係陷阱。原檔嘅少量實測缺乏可核對連結，唔用作通用規則。有 パワーヒッター／アーチスト 時可以先投資力量、ミート；本站唔將「固定彈道 3.5」當成已核實機制。</p>
+<h3>葛西：你張圖嘅下一步</h3><p>一壘手，彈道 2、ミート 66、パワー 56、走力 79、肩力 57、守備力 62、捕球 76。想養主砲，先揀 <b>パワーアップ</b> 到 C60，再考慮 <b>弾道アップ</b> 到 3，之後力量 B70 → A80。捕球同跑力暫停專練。截圖睇唔到特殊能力，範例會標「未確認」。</p>
+<button class="pill" data-go="planner">開啟下一項練乜</button>
+<h3>搵新生睇乜</h3><ul><li>優先睇力量、ミート、彈道同長打特能；唔好只睇總星數。</li><li>留意赤特、守位適性同剩餘培養時間。球探評語只係線索，入學後再核對實際能力。</li><li>一壘、左／右外野較方便分配資源去打擊，但中外野仍需跑力同守備；有優秀打擊底子嘅其他守位亦可以養主砲。</li><li>プルヒッター 同 広角打法可按打法揀其中一邊；廣角主砲亦係選擇。</li></ul>
+<p class="note">參考：<a href="https://game8.jp/eikan-nine/628776">パワーヒッター</a>、<a href="https://game8.jp/eikan-nine/628778">広角打法</a>、<a href="https://appmedia.jp/pawapuro2026-2027/80070061">新生球探攻略</a>。數值路線屬本站建議。</p></section><section class="view" id="v-roles"><h2>其他定位</h2><p class="lede">定位係喺守位基礎之上加碼，唔係代替基礎。補足影響上場嘅短板後就可以分流，唔使等全能力達標。門檻係本站自訂，方便排陣同取捨，唔係官方評級。<span class="tag tmy">個人推論</span></p><div class="role"><h3>安打上壘型</h3><p class="core">核心能力：擊球準度為主，跑力為輔，彈道停 2</p><div class="scroll"><table class=""><thead><tr><th>級數</th><th>門檻</th></tr></thead><tbody><tr><td>有潛質</td><td>擊球準度 B70</td></tr><tr><td>上壘型</td><td>擊球準度 A80 ＋ アベレージヒッター</td></tr><tr><td>頂級</td><td>擊球準度 S90 ＋ 跑力 A80 ＋ 内野安打○</td></tr></tbody></table></div><ul><li>比賽打擊指示揀「流し打ち」入擊球準度經驗</li><li>進行圖示：マシン打撃 最大，其次 ティーバッティング、特打</li><li>合宿留 ティーバッティング／マシン打撃 抽 アベレージヒッター、広角打法</li><li>以彈道 2 作安打型參考起點；有長打需要可以再升</li></ul><p class="warn">安打同長打可以兼顧；資源有限先決定主攻方向，彈道 2／4 並非互斥職業限制。</p></div><div class="role"><h3>快腿盜壘型</h3><p class="core">核心能力：跑力，並留意上壘能力同盗塁特能。2024 成本表中跑力屬中成本組；捕球、耐力更平。</p><div class="scroll"><table class=""><thead><tr><th>級數</th><th>門檻</th></tr></thead><tbody><tr><td>未成型</td><td>跑力 B70 以下</td></tr><tr><td>可以盜</td><td>跑力 A80 ＋ 盗塁B</td></tr><tr><td>頂級</td><td>跑力 S90 ＋ 盗塁A ＋ 内野安打○</td></tr></tbody></table></div><ul><li>進行圖示：ハードル 最大，其次 ベースランニング</li><li>合宿留 ダッシュ／インターバル走 抽 盗塁+1、内野安打○</li><li>留 ベースランニング／ハードル 抽 盗塁+2、かく乱、プレッシャーラン</li><li>球隊方針揀「機動力重視」</li></ul><p class="warn">今作盜壘判定較嚴。建議跑力A、盗塁B以上、盜壘戰術等級高嗰陣才經常主動盜壘，仍要按比分出局數判斷。</p></div><div class="role"><h3>守備型</h3><p class="core">核心能力：守備力、肩力、捕球三樣一齊，唔可以只谷一樣</p><div class="scroll"><table class=""><thead><tr><th>級數</th><th>門檻</th></tr></thead><tbody><tr><td>合格</td><td>守位關鍵能力分別檢查，唔用平均掩蓋短板</td></tr><tr><td>可靠</td><td>關鍵守備能力向 B70；送球至少 D 作建議檢查點</td></tr><tr><td>守備專家</td><td>守備力 A80 ＋ 送球C ＋ 守備職人</td></tr></tbody></table></div><ul><li>進行圖示：特守（守備＋大、捕球＋大）最抵，其次 マシンガンノック</li><li>合宿留 ノック／マシンガンノック 抽 守備職人、高速チャージ、打球反応○</li><li>留 ラットマシン／チューブトレーニング 抽 送球+1、レーザービーム</li><li>特守要球隊方針配合，場地要有相應器材</li></ul><p class="warn">送球特能同肩力係兩樣嘢。肩力高唔代表傳得準。送球 E 以下先考慮補特能；再按失誤、守位適性同陣容決定有冇需要轉位。</p></div></section><section class="view" id="v-tensei"><h2>轉生選手查詢</h2>
+<p class="note">保留原檔 350 名轉生、51 名外國人資料；未逐筆獨立核對版本、能力或出現年份。</p><p class="lede">收錄標準：虹札 ★260 以上、接近虹札嘅最上位金札 ★250–259、キャッチャーB 以上。即係唔係全部轉生選手，只係高★同好捕手。</p>
+<div class="alert">轉生選手應該只會喺對應嘅入學年出現。11月球探收嘅係<b>下一年</b>入學嗰批，所以 2013年11月 要查 2014。呢點原表冇明寫，屬推論，用第一次球探驗證。</div>
+<div class="filters">
+  <label>入學年<input type="number" id="fy" value="2014" min="1930" max="2030"></label>
+  <label>位置<select id="fp"></select></label>
+  <label>地區<select id="fr"></select></label>
+  <label>搵名<input type="search" id="fn" placeholder="選手名／都道府県"></label>
+  <button id="clearY" type="button">睇全部年份</button>
+</div>
+<p id="cnt" class="cnt"></p>
+<div id="tRes"></div>
+<h3>外國人選手（★400 以上）</h3>
+<p class="note">原表冇列地區同年份，標題係「球探見到就超開心」，即係隨機遇到，target 唔到。青／赤／青赤＝特能數量。</p>
+<div id="gRes"></div>
+</section><section class="view" id="v-quick"><h2>三年模式速查</h2><p class="lede">打機嗰陣一眼睇完。<span class="tag t26">2026攻略參考</span></p><div class="scroll"><table class="grid"><thead><tr><th>類別</th><th>優先內容</th></tr></thead><tbody><tr><td>野手共通</td><td>跑力 → C、擊球準度 → C，之後再向 B</td></tr><tr><td>二壘／游擊</td><td>優先補守備力 → C</td></tr><tr><td>三壘／捕手</td><td>優先補肩力 → C</td></tr><tr><td>捕手</td><td>留意捕球，並優先取得 キャッチャー B／A。E 以下有負效果</td></tr><tr><td>三壘／游擊</td><td>送球至少 D，最好 C 以上</td></tr><tr><td>投手</td><td>耐力 D～C、控球 D～C，早期增加球種同總變化量</td></tr><tr><td>投手比賽指示</td><td>変化球中心 ＋ 緩急重視，兼顧變化球同球速經驗</td></tr><tr><td>進行圖示</td><td>総合練習、特打、特守 總經驗特別多，按需要、日數同落點選用</td></tr><tr><td>隊伍方向</td><td>初期同三年模式常用：機動力重視</td></tr><tr><td>資源原則</td><td>先補影響上場嘅短板，再按定位投資；主砲毋須等跑力 A 先練力量</td></tr></tbody></table></div><h3>日文中文對照</h3><div class="scroll"><table class=""><thead><tr><th>日文（遊戲畫面）</th><th>中文</th></tr></thead><tbody><tr><td>ミート</td><td>擊球準度</td></tr><tr><td>パワー</td><td>力量／長打力</td></tr><tr><td>走力</td><td>跑力</td></tr><tr><td>肩力</td><td>肩力</td></tr><tr><td>守備力</td><td>守備力</td></tr><tr><td>捕球</td><td>接球穩定性</td></tr><tr><td>弾道</td><td>彈道</td></tr><tr><td>コントロール</td><td>控球</td></tr><tr><td>スタミナ</td><td>耐力</td></tr><tr><td>送球</td><td>傳球準確性（特能）</td></tr><tr><td>キャッチャー</td><td>捕手特能</td></tr><tr><td>左投左打</td><td>左手投、左打席</td></tr><tr><td>右投左打</td><td>右手投、左打席</td></tr><tr><td>両打</td><td>左右開弓</td></tr><tr><td>変化球中心</td><td>以變化球為主</td></tr><tr><td>緩急重視</td><td>重視快慢球搭配</td></tr><tr><td>転がせ</td><td>打滾地球，用速度上壘</td></tr><tr><td>特打</td><td>特別打擊</td></tr><tr><td>特守</td><td>特別守備</td></tr><tr><td>おまかせ</td><td>交電腦自動分配</td></tr><tr><td>万能</td><td>均衡練習；實際分配以遊戲說明為準</td></tr><tr><td>ミートアップ</td><td>練擊球準度</td></tr><tr><td>パワーアップ</td><td>練力量</td></tr><tr><td>弾道アップ</td><td>練彈道</td></tr><tr><td>新球種覚える</td><td>學多一種變化球</td></tr><tr><td>変化球みがく</td><td>將現有變化球練強（總變化量+1）</td></tr><tr><td>パワーヒッター</td><td>全壘打型打者（特能）</td></tr><tr><td>アーチスト</td><td>全壘打型打者上位版（金特）</td></tr><tr><td>ラインドライブ</td><td>偏平飛球嘅特能；唔宜概括成必定減少全壘打</td></tr></tbody></table></div></section>
+</div>
+
+<footer>修訂：2026-09-14 · <a href="#sources">查看參考網址與核對範圍</a><br>資料來源：Game8 栄冠ナイン 2026-2027 攻略、ゲーミング再生工場（パワプロ2024 成本表）、玩家實測記錄、note「てるあき屋」轉生スカウト地域リスト。每段都標咗可信度，睇「睇之前要知」。</footer>
+
+<script>
+const D = {"tensei":[{"y":1932,"rg":"中国","pf":"広島","n":"藤村富美男","d":"","p":"三壘","s":364,"note":""},{"y":1935,"rg":"東海","pf":"愛知","n":"野口二郎","d":"","p":"投手","s":309,"note":""},{"y":1935,"rg":"九州","pf":"熊本","n":"川上哲治","d":"","p":"一壘","s":300,"note":"安打製造機"},{"y":1938,"rg":"近畿","pf":"兵庫","n":"別所昭","d":"","p":"投手","s":384,"note":"鉄人"},{"y":1941,"rg":"関東","pf":"東京","n":"杉下茂","d":"","p":"投手","s":288,"note":""},{"y":1948,"rg":"東海","pf":"愛知","n":"山内和弘","d":"","p":"外野","s":358,"note":""},{"y":1949,"rg":"東海","pf":"愛知","n":"金田正一","d":"","p":"投手","s":349,"note":"闘魂"},{"y":1949,"rg":"四国","pf":"香川","n":"中西太","d":"","p":"三壘","s":318,"note":""},{"y":1949,"rg":"近畿","pf":"京都","n":"吉田義男","d":"","p":"游擊","s":287,"note":"魔術師"},{"y":1949,"rg":"中国","pf":"岡山","n":"秋山登","d":"","p":"投手","s":261,"note":""},{"y":1950,"rg":"近畿","pf":"兵庫","n":"小山正明","d":"","p":"投手","s":340,"note":"精密機械"},{"y":1950,"rg":"関東","pf":"茨城","n":"豊田泰光","d":"","p":"游擊","s":269,"note":""},{"y":1951,"rg":"関東","pf":"千葉","n":"長嶋茂雄","d":"","p":"三壘","s":403,"note":""},{"y":1951,"rg":"近畿","pf":"京都","n":"野村克也","d":"","p":"捕手","s":344,"note":"球界の頭脳"},{"y":1951,"rg":"東海","pf":"愛知","n":"杉浦忠","d":"","p":"投手","s":318,"note":""},{"y":1951,"rg":"関東","pf":"東京","n":"土橋正幸","d":"","p":"投手","s":302,"note":""},{"y":1951,"rg":"北海道・東北","pf":"山形","n":"皆川睦男","d":"","p":"投手","s":260,"note":""},{"y":1951,"rg":"関東","pf":"群馬","n":"毒島章一","d":"","p":"外野","s":260,"note":"精神的支柱"},{"y":1952,"rg":"中国","pf":"広島","n":"広瀬叔功","d":"","p":"外野","s":358,"note":""},{"y":1952,"rg":"近畿","pf":"兵庫","n":"村山実","d":"","p":"投手","s":319,"note":""},{"y":1952,"rg":"関東","pf":"東京","n":"榎本喜八","d":"","p":"一壘","s":290,"note":"安打製造機"},{"y":1952,"rg":"関東","pf":"群馬","n":"中利夫","d":"","p":"外野","s":288,"note":""},{"y":1952,"rg":"東海","pf":"岐阜","n":"森昌彦","d":"","p":"捕手","s":262,"note":"キャッチャーA"},{"y":1953,"rg":"九州","pf":"大分","n":"稲尾和久","d":"","p":"投手","s":366,"note":"鉄腕"},{"y":1953,"rg":"中国","pf":"鳥取","n":"米田哲也","d":"","p":"投手","s":281,"note":"ガソリンタンク"},{"y":1954,"rg":"九州","pf":"佐賀","n":"権藤博","d":"DLC","p":"投手","s":298,"note":""},{"y":1954,"rg":"九州","pf":"佐賀","n":"権藤博","d":"","p":"投手","s":271,"note":""},{"y":1955,"rg":"近畿","pf":"大阪","n":"足立光宏","d":"","p":"投手","s":263,"note":""},{"y":1956,"rg":"関東","pf":"東京","n":"王貞治","d":"DLC","p":"一壘","s":400,"note":"アーチスト"},{"y":1956,"rg":"関東","pf":"東京","n":"王貞治","d":"","p":"一壘","s":391,"note":"アーチスト"},{"y":1956,"rg":"中国","pf":"広島","n":"張本勲","d":"","p":"外野","s":333,"note":"安打製造機"},{"y":1956,"rg":"四国","pf":"香川","n":"岡村浩二","d":"","p":"捕手","s":236,"note":"キャッチャーB"},{"y":1957,"rg":"東海","pf":"岐阜","n":"高木守道","d":"","p":"二壘","s":286,"note":""},{"y":1959,"rg":"近畿","pf":"大阪","n":"土井正博","d":"","p":"外野","s":303,"note":"引っ張り屋"},{"y":1959,"rg":"四国","pf":"徳島","n":"長池徳二","d":"","p":"外野","s":293,"note":""},{"y":1959,"rg":"関東","pf":"埼玉","n":"松原誠","d":"","p":"外野","s":260,"note":""},{"y":1959,"rg":"関東","pf":"神奈川","n":"柴田勲","d":"","p":"外野","s":257,"note":""},{"y":1960,"rg":"近畿","pf":"大阪","n":"尾崎行雄","d":"","p":"投手","s":306,"note":"怪童"},{"y":1960,"rg":"中国","pf":"岡山","n":"大杉勝男","d":"","p":"一壘","s":297,"note":""},{"y":1960,"rg":"四国","pf":"愛媛","n":"高井保弘","d":"","p":"一壘","s":264,"note":"代打の神様"},{"y":1960,"rg":"四国","pf":"香川","n":"島谷金二","d":"","p":"三壘","s":252,"note":""},{"y":1961,"rg":"九州","pf":"鹿児島","n":"外木場義郎","d":"","p":"投手","s":277,"note":""},{"y":1962,"rg":"中国","pf":"広島","n":"山本浩二","d":"","p":"外野","s":367,"note":""},{"y":1962,"rg":"関東","pf":"東京","n":"田淵幸一","d":"","p":"捕手","s":365,"note":"アーチスト"},{"y":1962,"rg":"中国","pf":"広島","n":"山本浩二","d":"DLC","p":"外野","s":365,"note":""},{"y":1962,"rg":"近畿","pf":"京都","n":"衣笠祥雄","d":"","p":"三壘","s":304,"note":"鉄人"},{"y":1962,"rg":"四国","pf":"高知","n":"有藤道世","d":"","p":"三壘","s":281,"note":""},{"y":1962,"rg":"四国","pf":"愛媛","n":"藤原満","d":"","p":"三壘","s":256,"note":""},{"y":1962,"rg":"関東","pf":"山梨","n":"中沢伸二","d":"","p":"捕手","s":218,"note":"キャッチャーB"},{"y":1963,"rg":"近畿","pf":"兵庫","n":"鈴木啓示","d":"","p":"投手","s":335,"note":"不屈の魂"},{"y":1963,"rg":"中国","pf":"岡山","n":"平松政次","d":"","p":"投手","s":326,"note":"怪物球威"},{"y":1963,"rg":"北海道・東北","pf":"北海道","n":"若松勉","d":"","p":"外野","s":313,"note":""},{"y":1963,"rg":"近畿","pf":"大阪","n":"福本豊","d":"","p":"外野","s":294,"note":"電光石火"},{"y":1963,"rg":"関東","pf":"山梨","n":"堀内恒夫","d":"","p":"投手","s":278,"note":""},{"y":1963,"rg":"近畿","pf":"奈良","n":"門田博光","d":"","p":"外野","s":270,"note":""},{"y":1963,"rg":"関東","pf":"千葉","n":"谷沢健一","d":"","p":"一壘","s":258,"note":""},{"y":1963,"rg":"関東","pf":"千葉","n":"木樽正明","d":"","p":"投手","s":250,"note":""},{"y":1963,"rg":"関東","pf":"東京","n":"大矢明彦","d":"","p":"捕手","s":233,"note":"キャッチャーA"},{"y":1964,"rg":"近畿","pf":"兵庫","n":"江夏豊","d":"","p":"投手","s":382,"note":"怪童"},{"y":1964,"rg":"東海","pf":"静岡","n":"加藤英司","d":"","p":"一壘","s":292,"note":""},{"y":1964,"rg":"北海道・東北","pf":"秋田","n":"山田久志","d":"","p":"投手","s":280,"note":""},{"y":1964,"rg":"北海道・東北","pf":"秋田","n":"山田久志","d":"DLC","p":"投手","s":274,"note":""},{"y":1965,"rg":"中国","pf":"広島","n":"村田兆治","d":"","p":"投手","s":296,"note":""},{"y":1966,"rg":"近畿","pf":"和歌山","n":"東尾修","d":"DLC","p":"投手","s":268,"note":"内角無双"},{"y":1966,"rg":"九州","pf":"大分","n":"大島康徳","d":"","p":"外野","s":266,"note":""},{"y":1966,"rg":"近畿","pf":"和歌山","n":"東尾修","d":"","p":"投手","s":253,"note":""},{"y":1967,"rg":"中国","pf":"広島","n":"簑田浩二","d":"","p":"外野","s":337,"note":""},{"y":1967,"rg":"東海","pf":"静岡","n":"山下大輔","d":"","p":"游擊","s":251,"note":""},{"y":1967,"rg":"中国","pf":"山口","n":"有田修三","d":"","p":"捕手","s":226,"note":"キャッチャーB"},{"y":1968,"rg":"近畿","pf":"大阪","n":"新井宏昌","d":"","p":"外野","s":279,"note":"安打製造機"},{"y":1969,"rg":"北海道・東北","pf":"秋田","n":"落合博満","d":"","p":"三壘","s":373,"note":"勝負師"},{"y":1969,"rg":"九州","pf":"福岡","n":"真弓明信","d":"","p":"外野","s":279,"note":""},{"y":1969,"rg":"北海道・東北","pf":"福島","n":"中畑清","d":"","p":"一壘","s":277,"note":""},{"y":1970,"rg":"九州","pf":"福岡","n":"島田誠","d":"","p":"外野","s":262,"note":""},{"y":1970,"rg":"関東","pf":"神奈川","n":"田代富雄","d":"","p":"三壘","s":254,"note":""},{"y":1971,"rg":"北海道・東北","pf":"福島","n":"江川卓","d":"","p":"投手","s":343,"note":"怪童"},{"y":1971,"rg":"関東","pf":"千葉","n":"掛布雅之","d":"","p":"三壘","s":311,"note":""},{"y":1971,"rg":"東海","pf":"愛知","n":"平野謙","d":"","p":"外野","s":291,"note":""},{"y":1971,"rg":"中国","pf":"島根","n":"大野豊","d":"","p":"投手","s":282,"note":""},{"y":1971,"rg":"関東","pf":"千葉","n":"古屋英夫","d":"","p":"三壘","s":259,"note":""},{"y":1971,"rg":"東海","pf":"静岡","n":"袴田英利","d":"","p":"捕手","s":202,"note":"キャッチャーB"},{"y":1972,"rg":"関東","pf":"千葉","n":"石毛宏典","d":"","p":"三壘","s":299,"note":"切り込み隊長"},{"y":1972,"rg":"北海道・東北","pf":"北海道","n":"髙橋慶彦","d":"","p":"游擊","s":285,"note":""},{"y":1973,"rg":"近畿","pf":"大阪","n":"岡田彰布","d":"","p":"二壘","s":322,"note":""},{"y":1973,"rg":"九州","pf":"鹿児島","n":"北別府学","d":"","p":"投手","s":308,"note":"精密機械"},{"y":1973,"rg":"関東","pf":"千葉","n":"篠塚和典","d":"DLC","p":"二壘","s":267,"note":""},{"y":1974,"rg":"関東","pf":"神奈川","n":"原辰徳","d":"DLC","p":"三壘","s":286,"note":""},{"y":1974,"rg":"関東","pf":"神奈川","n":"原辰徳","d":"","p":"三壘","s":283,"note":""},{"y":1974,"rg":"中国","pf":"山口","n":"高木豊","d":"","p":"游擊","s":280,"note":""},{"y":1974,"rg":"東海","pf":"静岡","n":"大石大二郎","d":"","p":"二壘","s":271,"note":""},{"y":1974,"rg":"九州","pf":"佐賀","n":"辻発彦","d":"DLC","p":"二壘","s":269,"note":""},{"y":1974,"rg":"中国","pf":"広島","n":"山崎隆造","d":"","p":"外野","s":263,"note":""},{"y":1974,"rg":"九州","pf":"佐賀","n":"辻発彦","d":"","p":"二壘","s":254,"note":""},{"y":1975,"rg":"近畿","pf":"兵庫","n":"屋鋪要","d":"","p":"外野","s":262,"note":""},{"y":1975,"rg":"九州","pf":"宮崎","n":"西村徳文","d":"","p":"外野","s":251,"note":""},{"y":1976,"rg":"九州","pf":"福岡","n":"松永浩美","d":"","p":"三壘","s":283,"note":""},{"y":1976,"rg":"九州","pf":"沖縄","n":"石嶺和彦","d":"","p":"外野","s":271,"note":""},{"y":1976,"rg":"中国","pf":"山口","n":"津田恒実","d":"","p":"投手","s":270,"note":""},{"y":1978,"rg":"九州","pf":"熊本","n":"秋山幸二","d":"","p":"外野","s":393,"note":""},{"y":1978,"rg":"中国","pf":"広島","n":"藤井康雄","d":"","p":"外野","s":268,"note":""},{"y":1978,"rg":"近畿","pf":"奈良","n":"駒田徳広","d":"","p":"一壘","s":260,"note":"恐怖の満塁男"},{"y":1978,"rg":"九州","pf":"熊本","n":"伊藤勤","d":"","p":"捕手","s":233,"note":"キャッチャーA"},{"y":1979,"rg":"近畿","pf":"奈良","n":"吉村禎章","d":"","p":"外野","s":270,"note":""},{"y":1979,"rg":"東海","pf":"愛知","n":"槙原寛己","d":"","p":"投手","s":267,"note":""},{"y":1980,"rg":"関東","pf":"埼玉","n":"斎藤雅樹","d":"","p":"投手","s":304,"note":""},{"y":1980,"rg":"関東","pf":"神奈川","n":"阿波野秀幸","d":"","p":"投手","s":260,"note":""},{"y":1980,"rg":"近畿","pf":"滋賀","n":"西崎幸広","d":"","p":"投手","s":252,"note":""},{"y":1981,"rg":"近畿","pf":"兵庫","n":"古田敦也","d":"","p":"捕手","s":392,"note":"球界の頭脳"},{"y":1981,"rg":"中国","pf":"岡山","n":"佐々木誠","d":"","p":"外野","s":286,"note":""},{"y":1981,"rg":"近畿","pf":"兵庫","n":"池山隆寛","d":"DLC","p":"游擊","s":284,"note":""},{"y":1981,"rg":"近畿","pf":"兵庫","n":"池山隆寛","d":"","p":"游擊","s":271,"note":""},{"y":1981,"rg":"関東","pf":"神奈川","n":"山本昌広","d":"","p":"投手","s":265,"note":""},{"y":1981,"rg":"関東","pf":"千葉","n":"小宮山悟","d":"","p":"投手","s":263,"note":""},{"y":1981,"rg":"近畿","pf":"和歌山","n":"吉井理人","d":"","p":"投手","s":250,"note":""},{"y":1982,"rg":"九州","pf":"大分","n":"野村謙二郎","d":"","p":"二壘","s":311,"note":""},{"y":1983,"rg":"近畿","pf":"大阪","n":"清原和博","d":"","p":"一壘","s":318,"note":""},{"y":1983,"rg":"近畿","pf":"大阪","n":"桑田真澄","d":"","p":"投手","s":288,"note":""},{"y":1983,"rg":"北海道・東北","pf":"宮城","n":"佐々木主浩","d":"","p":"投手","s":267,"note":""},{"y":1983,"rg":"中国","pf":"島根","n":"佐々岡真司","d":"","p":"投手","s":266,"note":""},{"y":1983,"rg":"九州","pf":"宮崎","n":"田中幸雄","d":"","p":"游擊","s":261,"note":""},{"y":1983,"rg":"九州","pf":"熊本","n":"野田浩司","d":"","p":"投手","s":258,"note":""},{"y":1984,"rg":"中国","pf":"広島","n":"金本知憲","d":"","p":"外野","s":352,"note":"鉄人"},{"y":1984,"rg":"関東","pf":"東京","n":"飯田哲也","d":"","p":"外野","s":296,"note":""},{"y":1984,"rg":"近畿","pf":"大阪","n":"矢野燿大","d":"","p":"捕手","s":261,"note":"キャッチャーB"},{"y":1984,"rg":"四国","pf":"徳島","n":"潮崎哲也","d":"","p":"投手","s":261,"note":""},{"y":1984,"rg":"九州","pf":"佐賀","n":"緒方孝市","d":"","p":"外野","s":260,"note":""},{"y":1984,"rg":"東海","pf":"愛知","n":"山﨑武司","d":"","p":"外野","s":251,"note":""},{"y":1985,"rg":"近畿","pf":"兵庫","n":"田口壮","d":"","p":"外野","s":283,"note":""},{"y":1985,"rg":"近畿","pf":"大阪","n":"立浪和義","d":"","p":"二壘","s":282,"note":""},{"y":1985,"rg":"近畿","pf":"京都","n":"片岡篤史","d":"","p":"三壘","s":255,"note":""},{"y":1986,"rg":"関東","pf":"栃木","n":"石井琢朗","d":"","p":"游擊","s":325,"note":""},{"y":1986,"rg":"関東","pf":"東京","n":"江藤智","d":"","p":"三壘","s":300,"note":"アーチスト"},{"y":1986,"rg":"東海","pf":"三重","n":"豊田清","d":"DLC","p":"投手","s":299,"note":""},{"y":1986,"rg":"近畿","pf":"大阪","n":"宮本慎也","d":"DLC","p":"游擊","s":295,"note":""},{"y":1986,"rg":"近畿","pf":"京都","n":"伊藤智仁","d":"","p":"投手","s":275,"note":"驚異の切れ味"},{"y":1986,"rg":"近畿","pf":"大阪","n":"宮本慎也","d":"","p":"游擊","s":272,"note":""},{"y":1986,"rg":"近畿","pf":"大阪","n":"今中慎二","d":"","p":"投手","s":268,"note":""},{"y":1986,"rg":"中国","pf":"広島","n":"谷繁元信","d":"DLC","p":"捕手","s":268,"note":"キャッチャーA"},{"y":1986,"rg":"関東","pf":"埼玉","n":"真中満","d":"","p":"外野","s":261,"note":""},{"y":1986,"rg":"東海","pf":"静岡","n":"赤堀元之","d":"","p":"投手","s":260,"note":""},{"y":1986,"rg":"近畿","pf":"京都","n":"波留敏夫","d":"","p":"外野","s":254,"note":""},{"y":1986,"rg":"中国","pf":"島根","n":"梨田昌崇","d":"","p":"捕手","s":218,"note":"キャッチャーB／年份疑有誤"},{"y":1987,"rg":"九州","pf":"福岡","n":"新庄剛志","d":"","p":"外野","s":307,"note":""},{"y":1987,"rg":"九州","pf":"熊本","n":"前田智徳","d":"","p":"外野","s":298,"note":""},{"y":1987,"rg":"近畿","pf":"和歌山","n":"小久保裕紀","d":"DLC","p":"三壘","s":290,"note":""},{"y":1987,"rg":"近畿","pf":"和歌山","n":"小久保裕紀","d":"","p":"三壘","s":278,"note":""},{"y":1988,"rg":"東海","pf":"岐阜","n":"和田一浩","d":"DLC","p":"外野","s":333,"note":""},{"y":1988,"rg":"東海","pf":"愛知","n":"稲葉篤紀","d":"DLC","p":"外野","s":303,"note":""},{"y":1988,"rg":"近畿","pf":"大阪","n":"谷佳知","d":"","p":"外野","s":300,"note":""},{"y":1988,"rg":"北信越","pf":"石川","n":"村松有人","d":"","p":"外野","s":285,"note":""},{"y":1988,"rg":"東海","pf":"愛知","n":"稲葉篤紀","d":"","p":"外野","s":285,"note":""},{"y":1988,"rg":"近畿","pf":"和歌山","n":"西口文也","d":"","p":"投手","s":265,"note":""},{"y":1989,"rg":"東海","pf":"愛知","n":"イチロー","d":"","p":"外野","s":415,"note":"安打製造機"},{"y":1989,"rg":"近畿","pf":"大阪","n":"中村紀洋","d":"","p":"三壘","s":317,"note":""},{"y":1989,"rg":"九州","pf":"熊本","n":"松中信彦","d":"DLC","p":"一壘","s":302,"note":""},{"y":1989,"rg":"関東","pf":"千葉","n":"小笠原道大","d":"DLC","p":"三壘","s":297,"note":""},{"y":1989,"rg":"九州","pf":"熊本","n":"松中信彦","d":"","p":"一壘","s":297,"note":""},{"y":1989,"rg":"北海道・東北","pf":"宮城","n":"小坂誠","d":"","p":"游擊","s":282,"note":"魔術師"},{"y":1989,"rg":"九州","pf":"宮崎","n":"黒木知宏","d":"DLC","p":"投手","s":271,"note":""},{"y":1989,"rg":"近畿","pf":"奈良","n":"三浦大輔","d":"","p":"投手","s":260,"note":""},{"y":1989,"rg":"関東","pf":"千葉","n":"石井一久","d":"","p":"投手","s":250,"note":""},{"y":1990,"rg":"北信越","pf":"石川","n":"松井秀喜","d":"","p":"外野","s":355,"note":""},{"y":1990,"rg":"近畿","pf":"大阪","n":"黒田博樹","d":"","p":"投手","s":343,"note":""},{"y":1990,"rg":"東海","pf":"愛知","n":"岩瀬仁紀","d":"","p":"投手","s":314,"note":"驚異の切れ味"},{"y":1990,"rg":"関東","pf":"東京","n":"井口資仁","d":"","p":"二壘","s":302,"note":""},{"y":1990,"rg":"九州","pf":"福岡","n":"柴原洋","d":"","p":"外野","s":257,"note":""},{"y":1990,"rg":"近畿","pf":"兵庫","n":"今岡誠","d":"","p":"二壘","s":253,"note":"恐怖の満塁男"},{"y":1991,"rg":"近畿","pf":"大阪","n":"松井稼頭央","d":"DLC","p":"游擊","s":376,"note":"切り込み隊長"},{"y":1991,"rg":"近畿","pf":"大阪","n":"上原浩治","d":"DLC","p":"投手","s":337,"note":""},{"y":1991,"rg":"関東","pf":"千葉","n":"高橋由伸","d":"","p":"外野","s":327,"note":""},{"y":1991,"rg":"近畿","pf":"大阪","n":"上原浩治","d":"","p":"投手","s":308,"note":""},{"y":1991,"rg":"関東","pf":"神奈川","n":"井端弘和","d":"DLC","p":"游擊","s":292,"note":""},{"y":1991,"rg":"四国","pf":"徳島","n":"川上憲伸","d":"","p":"投手","s":290,"note":""},{"y":1991,"rg":"関東","pf":"神奈川","n":"井端弘和","d":"","p":"游擊","s":275,"note":""},{"y":1991,"rg":"四国","pf":"愛媛","n":"平井正史","d":"DLC","p":"投手","s":271,"note":""},{"y":1991,"rg":"近畿","pf":"大阪","n":"松井稼頭央","d":"","p":"游擊","s":266,"note":""},{"y":1991,"rg":"関東","pf":"千葉","n":"福浦和也","d":"","p":"一壘","s":263,"note":""},{"y":1991,"rg":"関東","pf":"千葉","n":"金子誠","d":"","p":"游擊","s":261,"note":""},{"y":1991,"rg":"九州","pf":"佐賀","n":"福地寿樹","d":"","p":"外野","s":259,"note":""},{"y":1992,"rg":"九州","pf":"長崎","n":"城島健司","d":"DLC","p":"捕手","s":324,"note":"バズーカ送球"},{"y":1992,"rg":"四国","pf":"徳島","n":"里崎智也","d":"","p":"捕手","s":301,"note":""},{"y":1992,"rg":"東海","pf":"愛知","n":"赤星憲広","d":"","p":"外野","s":298,"note":"電光石火"},{"y":1992,"rg":"近畿","pf":"大阪","n":"金城龍彦","d":"","p":"外野","s":272,"note":""},{"y":1992,"rg":"中国","pf":"岡山","n":"サブロー","d":"DLC","p":"外野","s":270,"note":""},{"y":1992,"rg":"関東","pf":"神奈川","n":"多村仁志","d":"","p":"外野","s":253,"note":""},{"y":1992,"rg":"中国","pf":"岡山","n":"サブロー","d":"","p":"外野","s":253,"note":""},{"y":1992,"rg":"中国","pf":"広島","n":"二岡智宏","d":"","p":"游擊","s":250,"note":""},{"y":1993,"rg":"九州","pf":"鹿児島","n":"福留孝介","d":"DLC","p":"外野","s":357,"note":""},{"y":1993,"rg":"近畿","pf":"京都","n":"斉藤和巳","d":"","p":"投手","s":297,"note":""},{"y":1993,"rg":"九州","pf":"鹿児島","n":"福留孝介","d":"","p":"外野","s":287,"note":""},{"y":1993,"rg":"九州","pf":"熊本","n":"荒木雅博","d":"","p":"二壘","s":256,"note":""},{"y":1994,"rg":"関東","pf":"千葉","n":"阿部慎之助","d":"DLC","p":"捕手","s":354,"note":"キャッチャーB"},{"y":1994,"rg":"関東","pf":"千葉","n":"阿部慎之助","d":"","p":"捕手","s":309,"note":"キャッチャーB"},{"y":1994,"rg":"四国","pf":"愛媛","n":"岩村明憲","d":"","p":"三壘","s":293,"note":""},{"y":1994,"rg":"四国","pf":"徳島","n":"武田久","d":"","p":"投手","s":278,"note":"本塁打厳禁"},{"y":1995,"rg":"関東","pf":"茨城","n":"井川慶","d":"","p":"投手","s":275,"note":""},{"y":1995,"rg":"近畿","pf":"兵庫","n":"能見篤史","d":"DLC","p":"投手","s":262,"note":""},{"y":1995,"rg":"北海道・東北","pf":"北海道","n":"五十嵐亮太","d":"","p":"投手","s":257,"note":""},{"y":1995,"rg":"東海","pf":"岐阜","n":"石原慶幸","d":"","p":"捕手","s":235,"note":"キャッチャーB"},{"y":1996,"rg":"関東","pf":"東京","n":"松坂大輔","d":"","p":"投手","s":321,"note":""},{"y":1996,"rg":"四国","pf":"高知","n":"藤川球児","d":"DLC","p":"投手","s":310,"note":"怪童"},{"y":1996,"rg":"四国","pf":"高知","n":"藤川球児","d":"","p":"投手","s":307,"note":"怪童"},{"y":1996,"rg":"九州","pf":"福岡","n":"村田修一","d":"","p":"三壘","s":307,"note":""},{"y":1996,"rg":"九州","pf":"福岡","n":"杉内俊哉","d":"","p":"投手","s":303,"note":""},{"y":1996,"rg":"中国","pf":"島根","n":"和田毅","d":"DLC","p":"投手","s":284,"note":""},{"y":1996,"rg":"関東","pf":"東京","n":"森本稀哲","d":"DLC","p":"外野","s":275,"note":""},{"y":1996,"rg":"中国","pf":"広島","n":"梵英心","d":"","p":"游擊","s":269,"note":""},{"y":1996,"rg":"関東","pf":"東京","n":"森本稀哲","d":"","p":"外野","s":258,"note":""},{"y":1997,"rg":"九州","pf":"宮崎","n":"青木宣親","d":"","p":"外野","s":333,"note":""},{"y":1997,"rg":"近畿","pf":"京都","n":"糸井嘉男","d":"DLC","p":"外野","s":316,"note":""},{"y":1997,"rg":"関東","pf":"東京","n":"岩隈久志","d":"","p":"投手","s":310,"note":""},{"y":1997,"rg":"関東","pf":"東京","n":"鳥谷敬","d":"DLC","p":"游擊","s":285,"note":""},{"y":1997,"rg":"関東","pf":"東京","n":"鳥谷敬","d":"","p":"游擊","s":272,"note":""},{"y":1997,"rg":"近畿","pf":"京都","n":"糸井嘉男","d":"","p":"外野","s":270,"note":""},{"y":1998,"rg":"九州","pf":"大分","n":"内川聖一","d":"","p":"一壘","s":292,"note":""},{"y":1998,"rg":"近畿","pf":"兵庫","n":"中島裕之","d":"","p":"游擊","s":277,"note":""},{"y":1998,"rg":"九州","pf":"大分","n":"土谷鉄平","d":"","p":"外野","s":260,"note":""},{"y":1998,"rg":"北海道・東北","pf":"秋田","n":"攝津正","d":"","p":"投手","s":257,"note":""},{"y":1999,"rg":"関東","pf":"神奈川","n":"山口鉄也","d":"DLC","p":"投手","s":308,"note":"鉄人"},{"y":1999,"rg":"近畿","pf":"大阪","n":"中村剛也","d":"","p":"三壘","s":292,"note":"恐怖の満塁男"},{"y":1999,"rg":"近畿","pf":"京都","n":"平野佳寿","d":"DLC","p":"投手","s":281,"note":""},{"y":1999,"rg":"北信越","pf":"新潟","n":"金子千尋","d":"","p":"投手","s":269,"note":""},{"y":1999,"rg":"近畿","pf":"滋賀","n":"松田宣浩","d":"DLC","p":"三壘","s":269,"note":""},{"y":1999,"rg":"近畿","pf":"滋賀","n":"松田宣浩","d":"","p":"三壘","s":261,"note":""},{"y":2000,"rg":"近畿","pf":"奈良","n":"西岡剛","d":"DLC","p":"游擊","s":284,"note":""},{"y":2000,"rg":"東海","pf":"愛知","n":"浅尾拓也","d":"","p":"投手","s":283,"note":""},{"y":2000,"rg":"北海道・東北","pf":"山形","n":"長谷川勇也","d":"","p":"外野","s":275,"note":""},{"y":2000,"rg":"九州","pf":"福岡","n":"本多雄一","d":"DLC","p":"二壘","s":273,"note":""},{"y":2000,"rg":"九州","pf":"佐賀","n":"長野久義","d":"","p":"外野","s":264,"note":""},{"y":2000,"rg":"東海","pf":"静岡","n":"増井浩俊","d":"","p":"投手","s":250,"note":""},{"y":2001,"rg":"中国","pf":"広島","n":"西村健太朗","d":"","p":"投手","s":283,"note":"本塁打厳禁"},{"y":2001,"rg":"近畿","pf":"兵庫","n":"宮西尚生","d":"DLC","p":"投手","s":282,"note":"鉄腕"},{"y":2001,"rg":"東海","pf":"愛知","n":"大島洋平","d":"","p":"外野","s":260,"note":""},{"y":2001,"rg":"近畿","pf":"兵庫","n":"宮西尚生","d":"","p":"投手","s":250,"note":"鉄腕"},{"y":2002,"rg":"近畿","pf":"大阪","n":"ダルビッシュ有","d":"DLC","p":"投手","s":342,"note":""},{"y":2002,"rg":"関東","pf":"千葉","n":"涌井秀章","d":"DLC","p":"投手","s":271,"note":""},{"y":2002,"rg":"近畿","pf":"大阪","n":"ダルビッシュ有","d":"","p":"投手","s":266,"note":""},{"y":2003,"rg":"北信越","pf":"石川","n":"角中勝也","d":"DLC","p":"外野","s":270,"note":""},{"y":2003,"rg":"関東","pf":"群馬","n":"安達了一","d":"","p":"游擊","s":266,"note":""},{"y":2003,"rg":"近畿","pf":"京都","n":"平田良介","d":"","p":"外野","s":265,"note":""},{"y":2003,"rg":"近畿","pf":"大阪","n":"川端慎吾","d":"","p":"三壘","s":256,"note":""},{"y":2003,"rg":"北信越","pf":"石川","n":"角中勝也","d":"","p":"外野","s":253,"note":""},{"y":2004,"rg":"近畿","pf":"兵庫","n":"田中将大","d":"DLC","p":"投手","s":417,"note":"勝利の星"},{"y":2004,"rg":"中国","pf":"広島","n":"柳田悠岐","d":"","p":"外野","s":381,"note":""},{"y":2004,"rg":"近畿","pf":"兵庫","n":"坂本勇人","d":"","p":"游擊","s":341,"note":""},{"y":2004,"rg":"関東","pf":"神奈川","n":"秋山翔吾","d":"DLC","p":"外野","s":324,"note":""},{"y":2004,"rg":"近畿","pf":"兵庫","n":"田中将大","d":"","p":"投手","s":309,"note":""},{"y":2004,"rg":"近畿","pf":"大阪","n":"前田健太","d":"","p":"投手","s":305,"note":""},{"y":2004,"rg":"関東","pf":"神奈川","n":"秋山翔吾","d":"","p":"外野","s":302,"note":""},{"y":2004,"rg":"北海道・東北","pf":"秋田","n":"石山泰稚","d":"","p":"投手","s":252,"note":""},{"y":2005,"rg":"関東","pf":"東京","n":"菊池涼介","d":"DLC","p":"二壘","s":363,"note":"魔術師"},{"y":2005,"rg":"関東","pf":"東京","n":"菊池涼介","d":"","p":"二壘","s":336,"note":""},{"y":2005,"rg":"関東","pf":"神奈川","n":"菅野智之","d":"DLC","p":"投手","s":300,"note":""},{"y":2005,"rg":"中国","pf":"広島","n":"中田翔","d":"","p":"一壘","s":291,"note":""},{"y":2005,"rg":"関東","pf":"神奈川","n":"田中広輔","d":"","p":"游擊","s":258,"note":""},{"y":2005,"rg":"近畿","pf":"和歌山","n":"益田直也","d":"","p":"投手","s":254,"note":""},{"y":2006,"rg":"東海","pf":"三重","n":"西勇輝","d":"","p":"投手","s":274,"note":""},{"y":2006,"rg":"近畿","pf":"滋賀","n":"則本昂大","d":"DLC","p":"投手","s":270,"note":""},{"y":2006,"rg":"北信越","pf":"福井","n":"中村悠平","d":"","p":"捕手","s":235,"note":"キャッチャーB"},{"y":2007,"rg":"近畿","pf":"和歌山","n":"筒香嘉智","d":"","p":"外野","s":326,"note":""},{"y":2007,"rg":"九州","pf":"沖縄","n":"山川穂高","d":"","p":"一壘","s":273,"note":""},{"y":2007,"rg":"北海道・東北","pf":"岩手","n":"菊池雄星","d":"","p":"投手","s":263,"note":""},{"y":2007,"rg":"中国","pf":"岡山","n":"岡大海","d":"","p":"外野","s":257,"note":""},{"y":2008,"rg":"近畿","pf":"兵庫","n":"山田哲人","d":"DLC","p":"二壘","s":343,"note":""},{"y":2008,"rg":"近畿","pf":"兵庫","n":"山田哲人","d":"","p":"二壘","s":341,"note":""},{"y":2008,"rg":"九州","pf":"大分","n":"源田壮亮","d":"","p":"游擊","s":271,"note":""},{"y":2008,"rg":"九州","pf":"熊本","n":"牧原大成","d":"","p":"二壘","s":258,"note":""},{"y":2008,"rg":"東海","pf":"愛知","n":"千賀滉大","d":"DLC","p":"投手","s":251,"note":""},{"y":2009,"rg":"関東","pf":"千葉","n":"近藤健介","d":"","p":"外野","s":304,"note":""},{"y":2009,"rg":"北信越","pf":"福井","n":"吉田正尚","d":"DLC","p":"外野","s":304,"note":""},{"y":2009,"rg":"北信越","pf":"福井","n":"吉田正尚","d":"","p":"外野","s":290,"note":""},{"y":2009,"rg":"九州","pf":"福岡","n":"今永昇太","d":"","p":"投手","s":285,"note":""},{"y":2009,"rg":"近畿","pf":"大阪","n":"桑原将志","d":"","p":"外野","s":278,"note":""},{"y":2009,"rg":"近畿","pf":"兵庫","n":"坂本誠志郎","d":"","p":"捕手","s":202,"note":"キャッチャーB"},{"y":2010,"rg":"北海道・東北","pf":"岩手","n":"大谷翔平","d":"DLC","p":"投手","s":446,"note":""},{"y":2010,"rg":"北海道・東北","pf":"岩手","n":"大谷翔平","d":"","p":"投手","s":419,"note":""},{"y":2010,"rg":"関東","pf":"東京","n":"鈴木誠也","d":"DLC","p":"外野","s":335,"note":""},{"y":2010,"rg":"関東","pf":"東京","n":"鈴木誠也","d":"","p":"外野","s":305,"note":""},{"y":2010,"rg":"近畿","pf":"兵庫","n":"近本光司","d":"","p":"外野","s":263,"note":""},{"y":2010,"rg":"近畿","pf":"大阪","n":"藤浪晋太郎","d":"","p":"投手","s":258,"note":""},{"y":2011,"rg":"近畿","pf":"大阪","n":"森友哉","d":"","p":"捕手","s":303,"note":""},{"y":2011,"rg":"東海","pf":"静岡","n":"髙橋遥人","d":"","p":"投手","s":286,"note":""},{"y":2011,"rg":"東海","pf":"三重","n":"東克樹","d":"","p":"投手","s":258,"note":""},{"y":2011,"rg":"関東","pf":"埼玉","n":"若月健矢","d":"","p":"捕手","s":256,"note":""},{"y":2011,"rg":"関東","pf":"埼玉","n":"上林誠知","d":"","p":"外野","s":254,"note":""},{"y":2012,"rg":"近畿","pf":"兵庫","n":"辰己涼介","d":"","p":"外野","s":284,"note":""},{"y":2012,"rg":"近畿","pf":"奈良","n":"岡本和真","d":"","p":"一壘","s":280,"note":""},{"y":2012,"rg":"北信越","pf":"福井","n":"栗原陵矢","d":"","p":"三壘","s":265,"note":""},{"y":2012,"rg":"関東","pf":"群馬","n":"髙橋光成","d":"","p":"投手","s":258,"note":""},{"y":2012,"rg":"関東","pf":"神奈川","n":"松本裕樹","d":"","p":"投手","s":250,"note":""},{"y":2013,"rg":"北海道・東北","pf":"北海道","n":"伊藤大海","d":"","p":"投手","s":280,"note":""},{"y":2013,"rg":"近畿","pf":"奈良","n":"大西広樹","d":"","p":"投手","s":271,"note":""},{"y":2013,"rg":"北海道・東北","pf":"秋田","n":"石井大智","d":"","p":"投手","s":270,"note":""},{"y":2013,"rg":"北海道・東北","pf":"福島","n":"佐藤都志也","d":"","p":"捕手","s":257,"note":""},{"y":2013,"rg":"北海道・東北","pf":"宮城","n":"平沢大河","d":"","p":"二壘","s":254,"note":""},{"y":2014,"rg":"近畿","pf":"兵庫","n":"佐藤輝明","d":"","p":"三壘","s":332,"note":""},{"y":2014,"rg":"中国","pf":"岡山","n":"山本由伸","d":"","p":"投手","s":332,"note":""},{"y":2014,"rg":"関東","pf":"栃木","n":"今井達也","d":"","p":"投手","s":329,"note":""},{"y":2014,"rg":"近畿","pf":"兵庫","n":"才木浩人","d":"","p":"投手","s":303,"note":""},{"y":2014,"rg":"近畿","pf":"兵庫","n":"村上頌樹","d":"","p":"投手","s":285,"note":""},{"y":2014,"rg":"北信越","pf":"長野","n":"牧秀悟","d":"","p":"二壘","s":277,"note":""},{"y":2014,"rg":"近畿","pf":"兵庫","n":"山﨑伊織","d":"","p":"投手","s":276,"note":""},{"y":2014,"rg":"関東","pf":"千葉","n":"藤平尚真","d":"","p":"投手","s":261,"note":""},{"y":2014,"rg":"近畿","pf":"和歌山","n":"森浦大輔","d":"","p":"投手","s":257,"note":""},{"y":2014,"rg":"九州","pf":"福岡","n":"大津亮介","d":"","p":"投手","s":255,"note":""},{"y":2014,"rg":"関東","pf":"千葉","n":"早川隆久","d":"","p":"投手","s":253,"note":""},{"y":2014,"rg":"中国","pf":"山口","n":"山野太一","d":"","p":"投手","s":253,"note":""},{"y":2015,"rg":"九州","pf":"熊本","n":"村上宗隆","d":"DLC","p":"三壘","s":330,"note":""},{"y":2015,"rg":"九州","pf":"沖縄","n":"平良海馬","d":"","p":"投手","s":328,"note":""},{"y":2015,"rg":"近畿","pf":"京都","n":"北山亘基","d":"","p":"投手","s":293,"note":""},{"y":2015,"rg":"九州","pf":"熊本","n":"村上宗隆","d":"","p":"三壘","s":293,"note":""},{"y":2015,"rg":"近畿","pf":"和歌山","n":"中川虎大","d":"","p":"投手","s":269,"note":""},{"y":2015,"rg":"九州","pf":"長崎","n":"隅田知一郎","d":"","p":"投手","s":268,"note":""},{"y":2015,"rg":"近畿","pf":"兵庫","n":"大勢","d":"","p":"投手","s":264,"note":""},{"y":2015,"rg":"近畿","pf":"大阪","n":"西川愛也","d":"","p":"外野","s":260,"note":""},{"y":2015,"rg":"北海道・東北","pf":"北海道","n":"髙島泰都","d":"","p":"投手","s":257,"note":""},{"y":2015,"rg":"関東","pf":"東京","n":"渡部遼人","d":"","p":"外野","s":257,"note":""},{"y":2015,"rg":"関東","pf":"東京","n":"赤星優志","d":"","p":"投手","s":256,"note":""},{"y":2015,"rg":"関東","pf":"東京","n":"清宮幸太郎","d":"","p":"一壘","s":252,"note":""},{"y":2016,"rg":"関東","pf":"神奈川","n":"森下翔太","d":"","p":"外野","s":290,"note":""},{"y":2016,"rg":"北海道・東北","pf":"青森","n":"松山晋也","d":"","p":"投手","s":288,"note":""},{"y":2016,"rg":"関東","pf":"東京","n":"矢澤宏太","d":"","p":"投手","s":269,"note":""},{"y":2016,"rg":"九州","pf":"沖縄","n":"金村尚真","d":"","p":"投手","s":261,"note":""},{"y":2016,"rg":"九州","pf":"宮崎","n":"戸郷翔征","d":"","p":"投手","s":255,"note":""},{"y":2017,"rg":"九州","pf":"沖縄","n":"宮城大弥","d":"","p":"投手","s":316,"note":""},{"y":2017,"rg":"中国","pf":"広島","n":"竹丸和幸","d":"","p":"投手","s":269,"note":""},{"y":2017,"rg":"東海","pf":"三重","n":"岡林勇希","d":"","p":"外野","s":267,"note":""},{"y":2017,"rg":"関東","pf":"東京","n":"横山陸人","d":"","p":"投手","s":264,"note":""},{"y":2017,"rg":"関東","pf":"千葉","n":"及川雅貴","d":"","p":"投手","s":259,"note":""},{"y":2017,"rg":"関東","pf":"神奈川","n":"石田裕太郎","d":"","p":"投手","s":259,"note":""},{"y":2017,"rg":"九州","pf":"福岡","n":"武内夏暉","d":"","p":"投手","s":255,"note":""},{"y":2017,"rg":"関東","pf":"東京","n":"細野晴希","d":"","p":"投手","s":254,"note":""},{"y":2018,"rg":"近畿","pf":"京都","n":"長谷川信哉","d":"","p":"外野","s":279,"note":""},{"y":2018,"rg":"近畿","pf":"兵庫","n":"中森俊介","d":"","p":"投手","s":278,"note":""},{"y":2018,"rg":"近畿","pf":"兵庫","n":"金丸夢斗","d":"","p":"投手","s":269,"note":""},{"y":2018,"rg":"近畿","pf":"大阪","n":"内星龍","d":"","p":"投手","s":263,"note":""},{"y":2018,"rg":"四国","pf":"徳島","n":"岡本駿","d":"","p":"投手","s":254,"note":""},{"y":2018,"rg":"近畿","pf":"和歌山","n":"西川史礁","d":"","p":"外野","s":253,"note":""},{"y":2018,"rg":"九州","pf":"長崎","n":"中村優斗","d":"","p":"投手","s":253,"note":""},{"y":2018,"rg":"九州","pf":"宮崎","n":"廣池康志郎","d":"","p":"投手","s":253,"note":""},{"y":2019,"rg":"北海道・東北","pf":"青森","n":"福島蓮","d":"","p":"投手","s":278,"note":""},{"y":2019,"rg":"近畿","pf":"大阪","n":"達孝太","d":"","p":"投手","s":269,"note":""},{"y":2019,"rg":"北信越","pf":"新潟","n":"滝澤夏央","d":"","p":"游擊","s":263,"note":""},{"y":2019,"rg":"関東","pf":"埼玉","n":"羽田慎之介","d":"","p":"投手","s":260,"note":""},{"y":2020,"rg":"近畿","pf":"滋賀","n":"山田陽翔","d":"","p":"投手","s":250,"note":""},{"y":2021,"rg":"九州","pf":"福岡","n":"藤原大翔","d":"","p":"投手","s":279,"note":""},{"y":2021,"rg":"近畿","pf":"滋賀","n":"前田悠伍","d":"","p":"投手","s":273,"note":""},{"y":2021,"rg":"関東","pf":"茨城","n":"木村優人","d":"","p":"投手","s":260,"note":""},{"y":2022,"rg":"東海","pf":"愛知","n":"篠原響","d":"","p":"投手","s":355,"note":""},{"y":2022,"rg":"九州","pf":"福岡","n":"柴田獅子","d":"","p":"投手","s":280,"note":""}],"gaijin":[{"p":"投手","n":"タリック・スクーバル（米）","s":589,"b":6,"r":0,"br":1,"note":""},{"p":"游擊","n":"ボビー・ウィットJr.（米）","s":561,"b":8,"r":0,"br":2,"note":""},{"p":"投手","n":"ローガン・ウェブ（米）","s":550,"b":9,"r":0,"br":1,"note":""},{"p":"外野","n":"アーロン・ジャッジ（米）","s":538,"b":9,"r":0,"br":0,"note":"威圧感"},{"p":"外野","n":"ピート・クロウ＝アームストロング（米）","s":528,"b":8,"r":1,"br":2,"note":""},{"p":"投手","n":"クリストファー・サンチェス（度）","s":523,"b":10,"r":0,"br":1,"note":""},{"p":"投手","n":"ポール・スキーンズ（米）","s":523,"b":7,"r":1,"br":0,"note":""},{"p":"外野","n":"フェルナンド・タティスJr.（度）","s":519,"b":12,"r":0,"br":0,"note":""},{"p":"外野","n":"フリオ・ロドリゲス（度）","s":507,"b":7,"r":1,"br":2,"note":""},{"p":"投手","n":"リバン・モイネロ（ソ）","s":490,"b":9,"r":0,"br":1,"note":""},{"p":"外野","n":"ロナルド・アクーニャJr.（委）","s":490,"b":8,"r":2,"br":0,"note":"威圧感"},{"p":"外野","n":"タフィー・ローズ（L近）","s":478,"b":7,"r":2,"br":0,"note":"威圧感"},{"p":"二壘","n":"ロバート・ローズ（L横）","s":476,"b":9,"r":1,"br":0,"note":"威圧感"},{"p":"一壘","n":"ロベルト・ペタジーニ（Lヤ）","s":475,"b":7,"r":1,"br":0,"note":"威圧感"},{"p":"一壘","n":"ランディ・バース（L神）","s":472,"b":7,"r":0,"br":0,"note":"威圧感"},{"p":"投手","n":"アーロン・ノラ（伊）","s":471,"b":6,"r":2,"br":0,"note":""},{"p":"外野","n":"バイロン・バクストン（米）","s":466,"b":4,"r":0,"br":1,"note":""},{"p":"三壘","n":"マイケル・ガルシア（委）","s":465,"b":10,"r":1,"br":1,"note":""},{"p":"一壘","n":"ブーマー・ウェルズ（L急）","s":464,"b":11,"r":1,"br":0,"note":"威圧感"},{"p":"捕手","n":"カル・ローリー（米）","s":457,"b":8,"r":1,"br":2,"note":""},{"p":"一壘","n":"ブーマー・ウェルズ（LBW）","s":450,"b":10,"r":1,"br":0,"note":"威圧感"},{"p":"投手","n":"ジェームソン・タイヨン（加）","s":444,"b":5,"r":1,"br":1,"note":""},{"p":"外野","n":"セダン・ラファエラ（蘭）","s":443,"b":6,"r":0,"br":2,"note":""},{"p":"投手","n":"ライデル・マルティネス（巨）","s":442,"b":5,"r":0,"br":0,"note":""},{"p":"外野","n":"フアン・ソト（度）","s":441,"b":11,"r":2,"br":0,"note":""},{"p":"二壘","n":"ケテル・マルテ（度）","s":440,"b":5,"r":1,"br":1,"note":""},{"p":"外野","n":"ジャクソン・チョーリオ（委）","s":438,"b":8,"r":0,"br":1,"note":""},{"p":"投手","n":"マシュー・ボイド（米）","s":435,"b":5,"r":0,"br":0,"note":""},{"p":"二壘","n":"ボビー・マルカーノ（L急）","s":431,"b":9,"r":0,"br":0,"note":""},{"p":"游擊","n":"エゼキエル・トーバー（委）","s":431,"b":5,"r":1,"br":0,"note":""},{"p":"外野","n":"ジャレン・デュラン（墨）","s":431,"b":3,"r":1,"br":1,"note":""},{"p":"游擊","n":"ガナー・ヘンダーソン（米）","s":428,"b":6,"r":0,"br":0,"note":""},{"p":"外野","n":"アレックス・ラミレス（Lヤ）","s":428,"b":6,"r":1,"br":0,"note":""},{"p":"外野","n":"ウィルヤー・アブレイユ（委）","s":423,"b":2,"r":2,"br":1,"note":""},{"p":"捕手","n":"アレハンドロ・カーク（墨）","s":419,"b":13,"r":2,"br":1,"note":"キャッチャーB"},{"p":"游擊","n":"ヘラルド・ペルドモ（度）","s":419,"b":6,"r":1,"br":2,"note":""},{"p":"外野","n":"ラーズ・ヌートバー（23日）","s":419,"b":7,"r":0,"br":0,"note":""},{"p":"一壘","n":"ブラディミール・ゲレーロJr.（度）","s":418,"b":8,"r":1,"br":0,"note":""},{"p":"投手","n":"クレイトン・カーショー（米）","s":416,"b":9,"r":0,"br":1,"note":""},{"p":"投手","n":"アンドレス・ムニョス（墨）","s":415,"b":7,"r":1,"br":2,"note":""},{"p":"三壘","n":"マニー・マチャド（度）","s":415,"b":8,"r":1,"br":0,"note":""},{"p":"外野","n":"ハリソン・ベイダー（以）","s":411,"b":4,"r":1,"br":1,"note":""},{"p":"投手","n":"キップ・グロス（L日）","s":409,"b":2,"r":0,"br":0,"note":""},{"p":"投手","n":"マイケル・ワカ（米）","s":408,"b":3,"r":1,"br":1,"note":""},{"p":"投手","n":"ダニエル・パレンシア（委）","s":407,"b":5,"r":1,"br":0,"note":""},{"p":"二壘","n":"ブライス・トゥラング（米）","s":407,"b":8,"r":0,"br":0,"note":""},{"p":"三壘","n":"エウヘニオ・スアレス（委）","s":405,"b":5,"r":1,"br":1,"note":""},{"p":"外野","n":"ランディ・アロサレーナ（墨）","s":405,"b":5,"r":1,"br":1,"note":""},{"p":"投手","n":"ライデル・マルティネス（玖）","s":402,"b":3,"r":0,"br":0,"note":""},{"p":"一壘","n":"レオン・リー（Lロ）","s":402,"b":5,"r":2,"br":0,"note":""},{"p":"投手","n":"ルイス・セベリーノ（度）","s":401,"b":4,"r":0,"br":0,"note":""}]};
+const STEPS = {"捕手": ["跑力 → C", "擊球準度 → C", "擊球準度、跑力 → B", "肩力 → C", "擊球準度、跑力 → A", "肩力 → B", "彈道 → 2", "力量、守備力、捕球 → C", "肩力 → A", "剩落全部向 A（或者肩力、擊球準度、跑力向 S）"], "一壘手": ["跑力 → C", "擊球準度 → C", "跑力 → B", "擊球準度 → B", "彈道 → 2", "力量、肩力、守備力、捕球 → C", "擊球準度、跑力 → A", "剩落全部向 A（或者擊球準度、跑力向 S）"], "二壘手": ["跑力 → C", "擊球準度 → C", "守備力 → C", "擊球準度、跑力 → B", "守備力 → B", "彈道 → 2", "力量、肩力、捕球 → C", "守備力 → A", "擊球準度、跑力 → A", "剩落全部向 A（或者擊球準度、跑力向 S）"], "三壘手": ["擊球準度、跑力 → C", "肩力 → C", "擊球準度、跑力 → B", "彈道 → 2", "肩力 → B", "力量、守備力、捕球 → C", "擊球準度、跑力 → A", "肩力 → A", "剩落全部向 A（或者擊球準度、跑力向 S）"], "游擊手": ["跑力 → C", "擊球準度 → C", "守備力 → C", "擊球準度、跑力 → B", "肩力 → C", "守備力 → B", "彈道 → 2", "力量、捕球 → C", "守備力 → A", "擊球準度、跑力 → A", "剩落全部向 A（或者擊球準度、跑力向 S）"], "外野手": ["跑力 → C", "擊球準度 → C", "跑力 → B", "擊球準度 → B", "擊球準度、跑力 → A", "彈道 → 2", "力量、肩力、守備力、捕球 → C", "剩落全部向 A（或者擊球準度、跑力向 S）"], "投手": ["耐力 → D～C", "控球 → D～C", "學第2種變化球", "總變化量 → 5", "學第3種變化球", "球速 → 145", "控球 → B", "總變化量 → 9", "學第4種變化球（＝總變化量10）", "控球 → A", "球速 → 155", "控球 → S", "剩落堆球速同總變化量"]};
+
+const STORE='eikan-helper-v2';
+let saved={};
+try{const raw=JSON.parse(localStorage.getItem(STORE)||'{}');if(raw&&typeof raw==='object'&&!Array.isArray(raw))saved=raw;}catch(e){}
+function persist(){try{localStorage.setItem(STORE,JSON.stringify(saved));}catch(e){document.getElementById('storage-note').textContent='瀏覽器未能儲存選項；今次仍可使用，重新開啟後可能要再輸入。';}}
+const F={traj:['彈道',1,4,'弾道アップ'],meet:['ミート／擊球準度',1,100,'ミートアップ'],power:['パワー／力量',1,100,'パワーアップ'],speed:['走力',1,100,'走力アップ'],arm:['肩力',1,100,'肩力アップ'],field:['守備力',1,100,'守備力アップ'],catch:['捕球',1,100,'捕球アップ'],velocity:['球速（km/h）',80,175,'球速アップ'],control:['コントロール／控球',1,100,'コントロールアップ'],stamina:['スタミナ／耐力',1,100,'スタミナアップ'],pitches:['變化球球種數（不含直球）',0,10,'新球種覚える'],breaks:['總變化量',0,70,'変化球みがく']};
+const batterKeys=['traj','meet','power','speed','arm','field','catch'],pitcherKeys=['velocity','control','stamina','pitches','breaks'];
+const example={pos:'一壘手',role:'hr',ph:'unknown',catcher:'未確認',throw:'未確認','pitch-role':'starter',traj:2,meet:66,power:56,speed:79,arm:57,field:62,catch:76,velocity:138,control:48,stamina:52,pitches:2,breaks:5};
+for(const [box,keys] of [['batter-inputs',batterKeys],['pitcher-inputs',pitcherKeys]])for(const k of keys){const l=document.createElement('label');l.textContent=F[k][0];const i=document.createElement('input');i.id='plan-'+k;i.type='number';i.min=F[k][1];i.max=F[k][2];i.step=1;i.required=true;l.appendChild(i);document.getElementById(box).appendChild(l);}
+const planKeys=['pos','role','ph','catcher','throw','pitch-role',...batterKeys,...pitcherKeys];
+function loadPlan(data){for(const k of planKeys){const el=document.getElementById('plan-'+k);el.value=data[k]??example[k];if(el.tagName==='SELECT'&&!el.value)el.value=example[k];}renderPlan();}
+function snapshot(){return Object.fromEntries(planKeys.map(k=>[k,document.getElementById('plan-'+k).value]));}
+function makePlan(v){
+ const q=[];const virtual={...v};const add=(k,t,why)=>{if(virtual[k]<t){q.push({k,from:virtual[k],to:t,why});virtual[k]=t;}};
+ if(v.pos==='投手'){
+  add('control',50,'先補控球，減少控球短板。');add('stamina',v['pitch-role']==='starter'?60:40,'按預計投球局數分配耐力，後援毋須照先發目標。');add('pitches',2,'建立基本球種選擇。');add('breaks',5,'提升現有變化球品質。');add('control',60,'建立控球基礎。');add('pitches',3,'增加配球選擇；請自行選未學方向。');add('velocity',145,'變化球同控球有基礎後再補球速。');add('breaks',9,'長線提升變化量；請自行選主要球種。');add('control',70,'進階控球目標。');return q;
+ }
+ add('meet',50,'先補最低打擊基礎，打得中先有後續機會。');
+ const important=['二壘手','游擊手','中外野'].includes(v.pos);
+ add('catch',40,'捕球偏低，先補接球穩定性。');
+ if(important||v.pos==='捕手')add('field',40,'守位關鍵短板，唔會用其他能力平均掩蓋。');
+ if(v.role==='hr'){
+  add('power',60,'主砲先補力量到 C60；毋須等跑力 A。');
+  if(v.ph!=='yes')add('traj',3,'未確認有長打特能時，彈道 3 作長打起點；唔係保證全壘打門檻。');
+  add('power',70,'建立長打方向。');add('meet',60,'兼顧擊中率。');add('power',80,'資源足夠再升主砲力量。');add('meet',70,'增加打擊穩定性。');
+ }else if(v.role==='hit') {add('traj',2,'安打型參考起點，已高於 2 唔需要降低。');add('meet',70,'以擊球準度為主。');add('speed',60,'配合上壘同跑壘。');add('meet',80,'進階安打方向。');}
+ else if(v.role==='run'){add('speed',70,'先建立速度。');add('meet',60,'上到壘先發揮快腿。');add('speed',80,'進階跑力；盜壘仍要睇盗塁特能同局面。');}
+ else if(v.role==='def') {add('field',60,'先提升守備力。');add('catch',50,'補接球穩定性。');add('arm',v.pos==='一壘手'?50:60,'肩力按守位需求投入。');if(important)add('speed',70,'中線守位兼顧覆蓋範圍。');add('field',80,'進階守備重點。');add('catch',60,'再補捕球，並另行檢查送球特能。');}
+ else {
+  if(v.pos==='捕手'){add('field',50,'捕手先補明顯守備短板。');add('arm',60,'兼顧捕手傳球。');add('catch',50,'捕球基礎；同キャッチャー特能分開。');}
+  if(important){add('field',60,'中線守位較早補守備力。');add('speed',60,'兼顧守備範圍。');}
+  if(['三壘手','游擊手','右外野'].includes(v.pos))add('arm',60,'按傳球距離補肩力。');
+  add('traj',2,'通用打擊起點。');add('meet',60,'建立安打基礎。');add('speed',v.pos==='一壘手'?50:60,'按守位補跑力，唔要求全部人先到 A。');add('power',50,'補基本打擊力量。');add('field',50,'補基本守備力。');add('catch',50,'補基本捕球。');
+ }
+ return q;
+}
+function renderPlan(){
+ const v=snapshot(),pitch=v.pos==='投手';document.getElementById('batter-fields').hidden=pitch;document.getElementById('pitcher-fields').hidden=!pitch;document.getElementById('plan-role').disabled=pitch;
+ saved.plan=v;persist();const result=document.getElementById('planner-result'),error=document.getElementById('planner-error');result.replaceChildren();error.textContent='';
+ for(const k of pitch?pitcherKeys:batterKeys){if(v[k].trim()===''||!Number.isInteger(Number(v[k]))||Number(v[k])<F[k][1]||Number(v[k])>F[k][2]){error.textContent=F[k][0]+'：請輸入 '+F[k][1]+'–'+F[k][2]+' 嘅整數。';return;}v[k]=Number(v[k]);}
+ if(pitch&&(v.breaks<v.pitches||v.breaks>7*v.pitches)){error.textContent='總變化量應介乎球種數同球種數 × 7 之間；直球唔計入球種數。';return;}
+ const q=makePlan(v),card=document.createElement('div');card.className='result-card';result.appendChild(card);
+ const put=(tag,txt,cls)=>{const el=document.createElement(tag);el.textContent=txt;if(cls)el.className=cls;card.appendChild(el);return el;};
+ put('p','建議 · '+v.pos+' · '+(pitch?(v['pitch-role']==='starter'?'先發':'後援'):document.getElementById('plan-role').selectedOptions[0].textContent));
+ if(q.length){const first=q[0];put('div',F[first.k][3],'next-action');put('p',F[first.k][0]+'：'+first.from+' → '+first.to);put('p',first.why);put('h3','達標後再檢查');const ol=put('ol','');for(const x of q.slice(1,5)){const li=document.createElement('li');li.textContent=F[x.k][3]+' → '+x.to+'：'+x.why;ol.appendChild(li);}if(q.length===1)put('p','呢項達標後，按實戰表現再揀定位。');}
+ else{put('div','目前路線已達標','next-action');put('p','可以換定位或按比賽短板微調，毋須繼續盲目升同一項。');}
+ if(!pitch){const paused=batterKeys.filter(k=>!q.some(x=>x.k===k));put('p','呢條路線暫停專練：'+(paused.map(k=>F[k][0]).join('、')||'按以上先後次序。'),'note');
+ if(v.ph==='unknown')put('p','長打特能未確認：先喺能力詳細確認 パワーヒッター／アーチスト；有就切換選項再睇建議。');
+ if(v.ph==='yes'&&v.role==='hr')put('p','有長打特能：呢條建議先投資力量同ミート，彈道要唔要再升按實戰決定。');
+ if(v.pos==='捕手')put('p','キャッチャー：'+v.catcher+'。'+(['E','F','G'].includes(v.catcher)?'優先留意負面特能；練捕球唔會改善呢個等級。':'捕球數值唔代表捕手特能等級。'));
+ if(['E','F','G'].includes(v.throw))put('p','送球 '+v.throw+'：留意傳球失誤，用特訓／特能本等機會改善；肩力練習唔會直接升送球等級。');}
+ put('p','每次能力更新後重新計。以上係建議檢查點；體力、場地、賽期同實戰失誤可能改變優先次序。','note');
+}
+loadPlan(saved.plan&&typeof saved.plan==='object'?saved.plan:example);
+document.getElementById('planner-form').addEventListener('submit',e=>{e.preventDefault();renderPlan();});
+document.getElementById('planner-form').addEventListener('input',renderPlan);
+document.getElementById('planner-form').addEventListener('change',renderPlan);
+document.getElementById('example-kasai').onclick=()=>loadPlan(example);
+document.getElementById('example-catcher').onclick=()=>loadPlan({...example,pos:'捕手',role:'basic',traj:1,meet:49,power:32,speed:52,arm:67,field:39,catch:85});
+
+const views = [...document.querySelectorAll('.view')];
+const tabs = document.getElementById('tabs');
+const home = document.getElementById('home');
+
+function go(id, push){
+  if(id!=='home'&&!views.some(v=>v.id==='v-'+id)) id='home';
+  views.forEach(v=>v.style.display='none');
+  home.style.display = (id==='home') ? 'block' : 'none';
+  tabs.style.display = (id==='home') ? 'none' : 'block';
+  if(id!=='home'){
+    const v = document.getElementById('v-'+id);
+    if(v) v.style.display='block';
+  }
+  document.querySelectorAll('.tab').forEach(t=>
+    t.setAttribute('aria-current', t.dataset.go===id ? 'true':'false'));
+  window.scrollTo(0,0);
+  if(push!==false) location.hash = (id==='home') ? '' : id;
+}
+document.addEventListener('click', e=>{
+  const b = e.target.closest('[data-go]');
+  if(b) go(b.dataset.go);
+});
+window.addEventListener('hashchange', ()=>go(location.hash.slice(1)||'home', false));
+
+/* ---- 育成步驟 ---- */
+const pos = Object.keys(STEPS);
+const pillBox = document.getElementById('stepPills');
+const stepBox = document.getElementById('stepBox');
+pos.forEach((p,i)=>{
+  const b=document.createElement('button');
+  b.className='pill'; b.type='button'; b.textContent=p;
+  b.setAttribute('aria-pressed', p===(pos.includes(saved.step)?saved.step:pos[0])?'true':'false');
+  b.onclick=()=>{
+    [...pillBox.children].forEach(c=>c.setAttribute('aria-pressed','false'));
+    b.setAttribute('aria-pressed','true'); drawSteps(p);
+  };
+  pillBox.appendChild(b);
+});
+function drawSteps(p){
+  saved.step=p; persist();
+  const rows = STEPS[p].map((t,i)=>
+    '<tr><td style="text-align:center;width:34px"><b>'+(i+1)+'</b></td><td>'+t+'</td></tr>').join('');
+  stepBox.innerHTML='<div class="scroll"><table><thead><tr><th>步</th><th>'+p+'</th></tr></thead><tbody>'+rows+'</tbody></table></div>';
+}
+drawSteps(pos.includes(saved.step)?saved.step:pos[0]);
+
+/* ---- 轉生查詢 ---- */
+const fy=document.getElementById('fy'), fp=document.getElementById('fp'),
+      fr=document.getElementById('fr'), fn=document.getElementById('fn'),
+      cnt=document.getElementById('cnt'), tRes=document.getElementById('tRes');
+function fill(sel, arr, all){
+  sel.innerHTML='<option value="">'+all+'</option>'+
+    arr.map(v=>'<option>'+v+'</option>').join('');
+}
+fill(fp,[...new Set(D.tensei.map(r=>r.p))],'全部位置');
+fill(fr,[...new Set(D.tensei.map(r=>r.rg))],'全部地區');
+let anyYear=saved.search?.anyYear===true;
+if(saved.search){ for(const [el,k] of [[fy,'y'],[fp,'p'],[fr,'r'],[fn,'q']]) if(saved.search[k]!=null) el.value=saved.search[k]; }
+fy.disabled=anyYear; document.getElementById('clearY').textContent=anyYear?'返回按年份':'睇全部年份';
+document.getElementById('clearY').onclick=()=>{
+  anyYear=!anyYear;
+  document.getElementById('clearY').textContent = anyYear? '返回按年份':'睇全部年份';
+  fy.disabled=anyYear; draw();
+};
+function draw(){
+ saved.search={y:fy.value,p:fp.value,r:fr.value,q:fn.value,anyYear}; persist();
+  const y=+fy.value, p=fp.value, r=fr.value, q=fn.value.trim().toLowerCase();
+  const out=D.tensei.filter(x=>
+    (anyYear||x.y===y) && (!p||x.p===p) && (!r||x.rg===r) &&
+    (!q||(x.n+x.pf).toLowerCase().includes(q)));
+  cnt.textContent = out.length ? out.length+' 人' :
+    (anyYear?'冇符合':y+' 年冇符合條件嘅高★轉生選手');
+  if(!out.length){ tRes.innerHTML=''; return; }
+  tRes.innerHTML='<div class="scroll"><table><thead><tr><th>年</th><th>地區</th>'+
+   '<th>都道府県</th><th>選手名</th><th>DLC</th><th>位置</th><th>★</th><th>備註</th></tr></thead><tbody>'+
+   out.map(x=>'<tr><td style="text-align:center">'+x.y+'</td><td>'+x.rg+'</td><td>'+x.pf+
+   '</td><td><b>'+x.n+'</b></td><td style="text-align:center">'+(x.d||'')+
+   '</td><td style="text-align:center">'+x.p+'</td><td style="text-align:center" class="'+
+   (x.s>=350?'hi':'')+'">'+x.s+'</td><td>'+(x.note||'')+'</td></tr>').join('')+
+   '</tbody></table></div>';
+}
+[fy,fp,fr,fn].forEach(el=>el.addEventListener('input',draw));
+draw();
+
+document.getElementById('gRes').innerHTML=
+ '<div class="scroll"><table><thead><tr><th>位置</th><th>選手名</th><th>★</th>'+
+ '<th>青</th><th>赤</th><th>青赤</th><th>備註</th></tr></thead><tbody>'+
+ D.gaijin.map(x=>'<tr><td style="text-align:center">'+x.p+'</td><td>'+x.n+
+ '</td><td style="text-align:center" class="'+(x.s>=500?'hi':'')+'">'+x.s+
+ '</td><td style="text-align:center">'+x.b+'</td><td style="text-align:center">'+x.r+
+ '</td><td style="text-align:center">'+x.br+'</td><td>'+(x.note||'')+'</td></tr>').join('')+
+ '</tbody></table></div>';
+
+go(location.hash.slice(1)||'home', false);
+</script></body></html>
