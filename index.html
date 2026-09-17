@@ -121,6 +121,7 @@ table.grid td:first-child{text-align:left;font-weight:700}
   border:0;border-bottom:3px solid #d69f00;border-radius:9px;padding:8px 15px;
   font:inherit;font-weight:800;font-size:14px;cursor:pointer}
 #clearY:active{border-bottom-width:1px}
+a{color:var(--blue);font-weight:700}
 .cnt{color:var(--blue-d);font-weight:900;font-size:17px;margin:8px 0 2px}
 .hi{color:var(--gA);font-weight:900}
 
@@ -137,30 +138,45 @@ footer{max-width:880px;margin:0 auto;padding:24px 15px 40px;color:var(--ink3);
 .planner-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:12px}.planner-grid label{display:flex;flex-direction:column;font-size:14px;font-weight:700}.planner-grid input,.planner-grid select{width:100%;min-width:0;padding:10px;border:1px solid #9cb9d6;border-radius:8px;font:inherit;background:white;color:var(--ink)}fieldset{min-width:0;border:1px solid #cfe0f2;border-radius:10px;margin:14px 0;padding:14px}legend{font-weight:800;color:var(--blue-d)}.actions{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}.next-action{font-size:clamp(24px,6vw,32px);color:var(--blue-d);font-weight:900;overflow-wrap:anywhere}.result-card{background:#fff;border:2px solid var(--blue);border-radius:12px;padding:18px;margin-top:18px}a{color:var(--blue-d);text-underline-offset:3px}.source-list li{margin-bottom:15px;overflow-wrap:anywhere}[hidden]{display:none!important}#planner-error{color:#a01f37}button{touch-action:manipulation}
 
 /* 我嘅球隊 */
-.rbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:12px 0}
-table.roster{min-width:760px}
-table.roster input{width:100%;min-width:52px;background:#fff;color:var(--ink);
-  border:2px solid #cfe0f2;border-radius:7px;padding:5px 6px;font:inherit;font-size:15px;
-  text-align:center}
-table.roster input:focus{border-color:var(--sky)}
-table.roster input.nm{text-align:left;min-width:86px}
-table.roster select{background:#fff;color:var(--ink);border:2px solid #cfe0f2;
-  border-radius:7px;padding:5px 4px;font:inherit;font-size:14px}
-table.roster td{padding:5px 6px}
-.yb{display:inline-block;min-width:34px;padding:1px 6px;border-radius:14px;color:#fff;
-  font-weight:800;font-size:13px;text-align:center}
+.rbar{display:flex;flex-wrap:wrap;gap:8px;align-items:flex-end;margin:12px 0}
+.rbar label{display:flex;flex-direction:column;gap:3px;font-size:12.5px;
+  color:var(--ink2);font-weight:700}
+.rbar select{background:#fff;color:var(--ink);border:2px solid #cfe0f2;
+  border-radius:8px;padding:7px 9px;font:inherit;font-size:15px}
+.pcard{background:var(--paper);border:2px solid #cfe0f2;border-bottom-width:4px;
+  border-radius:var(--r);padding:11px 12px;margin-bottom:11px}
+.ph{display:flex;flex-wrap:wrap;gap:7px;align-items:center;
+  padding-bottom:9px;border-bottom:1px dashed #d8e6f5}
+.ph input.nm{flex:1 1 104px;min-width:96px;max-width:190px}
+.ph .acts{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap}
+.pg{display:grid;grid-template-columns:repeat(auto-fit,minmax(104px,1fr));
+  gap:8px;margin-top:10px}
+.pg label,.pe label{display:flex;flex-direction:column;gap:2px;
+  font-size:11.5px;color:var(--ink2);font-weight:700;line-height:1.35}
+.pe{display:grid;grid-template-columns:repeat(auto-fit,minmax(138px,1fr));
+  gap:8px;margin-top:9px;padding-top:9px;border-top:1px dashed #d8e6f5}
+.pcard input,.pcard select{background:#fff;color:var(--ink);
+  border:2px solid #cfe0f2;border-radius:8px;padding:6px 7px;font:inherit;
+  font-size:15px;width:100%}
+.pcard input[type=number]{text-align:center}
+.pcard input:focus,.pcard select:focus{border-color:var(--sky);outline:none}
+.pcard .w{width:auto}
+.yb{display:inline-block;padding:2px 9px;border-radius:14px;color:#fff;
+  font-weight:800;font-size:13px}
 .y1{background:var(--gE)}.y2{background:var(--gC)}.y3{background:var(--gA)}
 .mini{background:var(--blue-l);border:2px solid #bcd9f6;color:var(--blue-d);
-  border-radius:7px;font:inherit;font-weight:700;font-size:12.5px;padding:4px 8px;
+  border-radius:8px;font:inherit;font-weight:700;font-size:12.5px;padding:5px 9px;
   cursor:pointer;white-space:nowrap}
 .mini:hover{background:#c9e2fb}
 .mini.del{background:#ffe9ec;border-color:#ffc3cd;color:#b02a40}
-.grow{background:#f6fafe}
-.grow table{min-width:420px;font-size:13.5px}
+.gbox{margin-top:10px;padding-top:9px;border-top:2px solid var(--blue-l)}
+.gbox table{min-width:340px;font-size:13.5px}
 .up{color:#1a8f3c;font-weight:800}
 .same{color:var(--ink3)}
 .empty{color:var(--ink2);background:var(--paper);border:2px dashed #cfe0f2;
-  border-radius:var(--r);padding:18px 14px;text-align:center}
+  border-radius:var(--r);padding:16px 14px;text-align:center}
+.acard{background:var(--paper);border:2px solid #e2ecf7;border-radius:var(--r);
+  padding:9px 12px;margin-bottom:8px;font-size:14px}
 </style></head><body>
 
 <header><div class="hd">
@@ -180,6 +196,7 @@ table.roster td{padding:5px 6px}
 <section class="view" id="v-roster"><h2>我嘅球隊</h2>
 <p class="lede">入一次就唔使再入。每個選手按年級分開記，所以你睇得到同一個人由一年級到三年級變咗幾多。資料存喺你部機嘅瀏覽器，換機或者清除瀏覽資料之前，記得先撳「匯出備份」。</p>
 <div class="rbar">
+  <label>新增時嘅年級<select id="newYr"><option>1</option><option>2</option><option>3</option></select></label>
   <button class="pill" type="button" id="addB">＋ 加野手</button>
   <button class="pill" type="button" id="addP">＋ 加投手</button>
   <button class="pill" type="button" id="promote">全隊升一個年級</button>
@@ -191,7 +208,8 @@ table.roster td{padding:5px 6px}
 <h3>野手</h3><div id="rB"></div>
 <h3>投手</h3><div id="rP"></div>
 <h3>畢業生</h3><div id="rA"></div>
-<p class="note">「升年級」會將每個人現時嘅數值抄落下一個年級做起點，三年級就移去畢業生保存。做之前最好先匯出一次備份，因為呢個動作撤銷唔到。</p>
+<p class="note">卡片上面嘅「年級」可以隨時改。如果改去嘅年級係空嘅，你而家填嘅數會搬過去，方便改錯年級。<br>
+「升年級」會將每個人現時嘅數值抄落下一個年級做起點，三年級就移去畢業生保存。做之前最好先匯出一次備份，因為呢個動作撤銷唔到。</p>
 </section>
 <section class="view" id="v-planner"><h2>下一項練乜？</h2>
 <p class="lede">先補影響上場嘅短板，再按定位分流。輸入現有能力，取得一項日文練習指示同後續檢查點。門檻係本站建議，唔係官方公式。</p>
@@ -260,7 +278,26 @@ table.roster td{padding:5px 6px}
 <tr><td>起步</td><td>力量 C60；未有長打特能可將彈道升至 3</td><td>パワーアップ → 弾道アップ</td></tr>
 <tr><td>準主砲</td><td>力量 B70，擊球準度 C60～B70</td><td>パワーアップ／ミートアップ</td></tr>
 <tr><td>主砲</td><td>力量 A80，視特能、表現同資源考慮彈道 4</td><td>パワーアップ／弾道アップ</td></tr></tbody></table></div>
-<p class="note">彈道 3 唔係陷阱。原檔嘅少量實測缺乏可核對連結，唔用作通用規則。有 パワーヒッター／アーチスト 時可以先投資力量、ミート；本站唔將「固定彈道 3.5」當成已核實機制。</p>
+<p class="note">彈道 3 唔係硬性陷阱。有 パワーヒッター／アーチスト 時可以先投資力量同擊球準度；本站唔將「固定彈道 3.5」當成已核實機制。下面列出實測嘅原始數據同限制，自己睇完再決定。</p>
+
+<h3>彈道實測嘅原始數據 <span class="tag tex">玩家實測</span></h3>
+<p>來源：@gaia「【栄冠ナイン3年縛り】弾道1〜4比較検証・実戦編」2025-02-03。パワプロ2024 版，にじさんじ甲子園本戰規則，3年縛り對戰。<br>
+<a href="https://note.com/blacktristars/n/nad5b47acab63" target="_blank" rel="noopener">note.com/blacktristars/n/nad5b47acab63</a></p>
+<div class="scroll"><table class="grid"><thead><tr><th>隊伍</th><th>勝率</th><th>得分</th><th>打擊率</th><th>長打率</th></tr></thead><tbody>
+<tr><td>彈道1</td><td>.533</td><td>52</td><td>.193</td><td>.231</td></tr>
+<tr><td>彈道2</td><td>.433</td><td>53</td><td><b class="best">.208</b></td><td>.246</td></tr>
+<tr><td>彈道3</td><td>.433</td><td>41</td><td>.166</td><td>.237</td></tr>
+<tr><td>彈道4</td><td><b class="best">.600</b></td><td><b class="best">69</b></td><td>.205</td><td><b class="best">.272</b></td></tr>
+</tbody></table></div>
+<p>作者自己落嘅結論係：彈道3想避開，要打擊率就彈道2，要長打率就彈道4，彈道2配力量D同彈道4配力量B兩個組合較強。<br>
+但同一位作者 2025 年 7 月打完第三次大會之後，立場變成「彈道2最優解而且成本最抵，長打照打得出、全壘打都有機會出，彈道1就幾乎冇」。即係佢最終唔係推彈道4。</p>
+<div class="alert"><b>四條限制，睇數字之前要知</b>
+<ol>
+<li><b>樣本細。</b>勝率 .600／.533／.433 呢組數對應每隊大約 15 場。作者 2026 年 4 月一次 2026 版測試，彈道3 打擊率 .097 只係 72 個打數。</li>
+<li><b>有混淆因素。</b>被比較嘅一號打者原田本身持有 ラインドライブ，而呢個特能會令彈道跌一段，所以嗰個選手嘅數據唔純粹反映彈道。</li>
+<li><b>同一作者自相矛盾。</b>佢前一篇「育成編」寫：栄冠ナイン 入面除咗犧牲飛球嘅戰術等級之外，彈道冇影響；試合內容幾乎冇分別，彈道4得分少只係啱啱好連續撞到 A 同 S 對手打低比分。</li>
+<li><b>情境唔同。</b>呢個係 にじ甲規則、COM 對 COM 嘅 3年縛り對戰，未必等於你普通遊玩。</li>
+</ol></div>
 <h3>葛西：你張圖嘅下一步</h3><p>一壘手，彈道 2、ミート 66、パワー 56、走力 79、肩力 57、守備力 62、捕球 76。想養主砲，先揀 <b>パワーアップ</b> 到 C60，再考慮 <b>弾道アップ</b> 到 3，之後力量 B70 → A80。捕球同跑力暫停專練。截圖睇唔到特殊能力，範例會標「未確認」。</p>
 <button class="pill" data-go="planner">開啟下一項練乜</button>
 <h3>搵新生睇乜</h3><ul><li>優先睇力量、ミート、彈道同長打特能；唔好只睇總星數。</li><li>留意赤特、守位適性同剩餘培養時間。球探評語只係線索，入學後再核對實際能力。</li><li>一壘、左／右外野較方便分配資源去打擊，但中外野仍需跑力同守備；有優秀打擊底子嘅其他守位亦可以養主砲。</li><li>プルヒッター 同 広角打法可按打法揀其中一邊；廣角主砲亦係選擇。</li></ul>
@@ -441,256 +478,4 @@ document.getElementById('gRes').innerHTML=
  '</tbody></table></div>';
 
 go(location.hash.slice(1)||'home', false);
-
-/* ================= 我嘅球隊 ================= */
-if(!Array.isArray(saved.roster)) saved.roster=[];
-if(!Array.isArray(saved.alumni)) saved.alumni=[];
-
-const POSB=['捕手','一壘手','二壘手','三壘手','游擊手','左外野','中外野','右外野'];
-const BT=['右投右打','右投左打','左投左打','左投右打','右投両打','左投両打'];
-const GRADE=['A','B','C','D','E','F','G','未確認'];
-
-function uid(){return 'p'+Date.now().toString(36)+Math.random().toString(36).slice(2,6);}
-function isP(p){return p.pos==='投手';}
-function keysOf(p){return isP(p)?pitcherKeys:batterKeys;}
-function snap(p,y){
-  if(!p.snaps) p.snaps={};
-  if(!p.snaps[y]){const o={};keysOf(p).forEach(k=>o[k]='');p.snaps[y]=o;}
-  return p.snaps[y];
-}
-function rmsg(t){
-  const e=document.getElementById('rMsg');
-  if(!t){e.hidden=true;return;}
-  e.hidden=false;e.textContent=t;
-}
-function rsave(){persist();}
-
-function addPlayer(pitcher){
-  saved.roster.push({id:uid(),name:'',pos:pitcher?'投手':'一壘手',
-    bt:'右投右打',yr:1,ph:'unknown',catcher:'未確認',throw:'未確認',
-    prole:'starter',snaps:{}});
-  rsave();drawRoster();
-}
-
-function sel(opts,val,cls){
-  return '<select class="'+(cls||'')+'">'+opts.map(o=>
-    '<option'+(o===val?' selected':'')+'>'+o+'</option>').join('')+'</select>';
-}
-
-function rowHTML(p){
-  const ks=keysOf(p), s=snap(p,p.yr);
-  let t='<tr data-id="'+p.id+'">';
-  t+='<td><input class="nm" data-f="name" value="'+(p.name||'').replace(/"/g,'&quot;')+'" placeholder="名字"></td>';
-  t+='<td>'+(isP(p)?'投手':sel(POSB,p.pos,'f-pos'))+'</td>';
-  t+='<td>'+sel(BT,p.bt,'f-bt')+'</td>';
-  t+='<td><span class="yb y'+p.yr+'">'+p.yr+'年</span></td>';
-  ks.forEach(k=>{
-    t+='<td><input data-k="'+k+'" type="number" min="'+F[k][1]+'" max="'+F[k][2]+
-       '" value="'+(s[k]===''||s[k]==null?'':s[k])+'"></td>';
-  });
-  if(isP(p)){
-    t+='<td>'+sel(['先發','短局數後援'],p.prole==='relief'?'短局數後援':'先發','f-prole')+'</td>';
-  }else{
-    t+='<td>'+sel(['未確認','兩者都冇','有其中一個'],
-      p.ph==='yes'?'有其中一個':(p.ph==='no'?'兩者都冇':'未確認'),'f-ph')+'</td>';
-    t+='<td>'+sel(GRADE,p.throw,'f-throw')+'</td>';
-    t+='<td>'+sel(GRADE,p.catcher,'f-catcher')+'</td>';
-  }
-  t+='<td><button class="mini" data-act="plan">睇練乜</button> '+
-     '<button class="mini" data-act="grow">成長</button> '+
-     '<button class="mini del" data-act="del">刪</button></td>';
-  t+='</tr>';
-  return t;
-}
-
-function tableHTML(list,pitcher){
-  if(!list.length) return '<p class="empty">仲未加'+(pitcher?'投手':'野手')+
-    '。撳上面嘅「＋ 加'+(pitcher?'投手':'野手')+'」。</p>';
-  const ks=pitcher?pitcherKeys:batterKeys;
-  let hd='<th>名字</th><th>守位</th><th>投打</th><th>年級</th>'+
-    ks.map(k=>'<th>'+F[k][0].split('／')[0]+'</th>').join('');
-  hd+= pitcher?'<th>用途</th>':'<th>パワーヒッター</th><th>送球</th><th>キャッチャー</th>';
-  hd+='<th></th>';
-  return '<div class="scroll"><table class="roster"><thead><tr>'+hd+
-    '</tr></thead><tbody>'+list.map(rowHTML).join('')+'</tbody></table></div>';
-}
-
-function alumniHTML(){
-  if(!saved.alumni.length) return '<p class="empty">仲未有畢業生。</p>';
-  return '<div class="scroll"><table><thead><tr><th>名字</th><th>守位</th>'+
-   '<th>投打</th><th>三年級數值</th><th></th></tr></thead><tbody>'+
-   saved.alumni.map(p=>{
-     const s=p.snaps&&p.snaps[3]?p.snaps[3]:{};
-     const txt=keysOf(p).map(k=>F[k][0].split('／')[0]+' '+(s[k]||'—')).join('、');
-     return '<tr data-id="'+p.id+'"><td><b>'+(p.name||'（未命名）')+'</b></td><td>'+p.pos+
-       '</td><td>'+p.bt+'</td><td>'+txt+'</td>'+
-       '<td><button class="mini" data-act="agrow">成長</button> '+
-       '<button class="mini del" data-act="adel">刪</button></td></tr>';
-   }).join('')+'</tbody></table></div>';
-}
-
-function drawRoster(){
-  document.getElementById('rB').innerHTML=
-    tableHTML(saved.roster.filter(p=>!isP(p)),false);
-  document.getElementById('rP').innerHTML=
-    tableHTML(saved.roster.filter(isP),true);
-  document.getElementById('rA').innerHTML=alumniHTML();
-}
-
-function growHTML(p){
-  const ks=keysOf(p);
-  let t='<div class="scroll"><table><thead><tr><th>能力</th>'+
-    '<th>1年</th><th>2年</th><th>3年</th><th>1→3</th></tr></thead><tbody>';
-  ks.forEach(k=>{
-    const v=[1,2,3].map(y=>(p.snaps&&p.snaps[y]&&p.snaps[y][k]!==''&&p.snaps[y][k]!=null)
-      ?Number(p.snaps[y][k]):null);
-    let d='—';
-    if(v[0]!=null){
-      const last=v[2]!=null?v[2]:(v[1]!=null?v[1]:null);
-      if(last!=null){const g=last-v[0];d=g>0?'<span class="up">+'+g+'</span>':
-        (g<0?'<span class="warn">'+g+'</span>':'<span class="same">0</span>');}
-    }
-    t+='<tr><td>'+F[k][0]+'</td>'+v.map(x=>'<td style="text-align:center">'+
-      (x==null?'<span class="same">—</span>':x)+'</td>').join('')+
-      '<td style="text-align:center">'+d+'</td></tr>';
-  });
-  t+='</tbody></table></div>';
-  if(!p.snaps||!p.snaps[1])
-    t+='<p class="note">一年級嗰欄空白，係因為你係喺佢二年級或之後才入資料。以後每年升級之前入一次，就會有完整記錄。</p>';
-  return t;
-}
-
-function toPlanner(p){
-  const ks=keysOf(p), s=snap(p,p.yr);
-  const setv=(id,v)=>{const e=document.getElementById(id);if(e!=null&&v!=null&&v!=='')e.value=v;};
-  setv('plan-pos', isP(p)?'投手':p.pos);
-  document.getElementById('plan-pos').dispatchEvent(new Event('change',{bubbles:true}));
-  if(isP(p)) setv('plan-pitch-role', p.prole==='relief'?'relief':'starter');
-  else{ setv('plan-ph',p.ph); setv('plan-catcher',p.catcher); setv('plan-throw',p.throw); }
-  let miss=[];
-  ks.forEach(k=>{ if(s[k]===''||s[k]==null) miss.push(F[k][0].split('／')[0]);
-                  else setv('plan-'+k, s[k]); });
-  go('planner');
-  if(miss.length){
-    document.getElementById('planner-error').textContent=
-      (p.name||'呢個選手')+' 仲有 '+miss.join('、')+' 未填，補完再撳「睇練習建議」。';
-  }else{
-    document.getElementById('planner-form')
-      .dispatchEvent(new Event('submit',{cancelable:true,bubbles:true}));
-  }
-}
-
-/* 事件：名冊 */
-document.getElementById('addB').onclick=()=>addPlayer(false);
-document.getElementById('addP').onclick=()=>addPlayer(true);
-
-['rB','rP'].forEach(id=>{
-  const box=document.getElementById(id);
-  box.addEventListener('input',e=>{
-    const tr=e.target.closest('tr'); if(!tr) return;
-    const p=saved.roster.find(x=>x.id===tr.dataset.id); if(!p) return;
-    if(e.target.dataset.f==='name'){p.name=e.target.value;rsave();return;}
-    if(e.target.dataset.k){
-      const v=e.target.value;
-      snap(p,p.yr)[e.target.dataset.k]= v===''?'':Number(v);
-      rsave();return;
-    }
-  });
-  box.addEventListener('change',e=>{
-    const tr=e.target.closest('tr'); if(!tr) return;
-    const p=saved.roster.find(x=>x.id===tr.dataset.id); if(!p) return;
-    const c=e.target.classList, v=e.target.value;
-    if(c.contains('f-pos')){p.pos=v;rsave();drawRoster();return;}
-    if(c.contains('f-bt')){p.bt=v;}
-    if(c.contains('f-prole')){p.prole=(v==='短局數後援')?'relief':'starter';}
-    if(c.contains('f-ph')){p.ph=(v==='有其中一個')?'yes':(v==='兩者都冇'?'no':'unknown');}
-    if(c.contains('f-throw')){p.throw=v;}
-    if(c.contains('f-catcher')){p.catcher=v;}
-    rsave();
-  });
-  box.addEventListener('click',e=>{
-    const b=e.target.closest('[data-act]'); if(!b) return;
-    const tr=b.closest('tr'); const p=saved.roster.find(x=>x.id===tr.dataset.id);
-    if(!p) return;
-    if(b.dataset.act==='del'){
-      if(!confirm('刪除「'+(p.name||'未命名')+'」？撤銷唔到。')) return;
-      saved.roster=saved.roster.filter(x=>x.id!==p.id); rsave(); drawRoster(); return;
-    }
-    if(b.dataset.act==='plan'){ toPlanner(p); return; }
-    if(b.dataset.act==='grow'){
-      const nx=tr.nextElementSibling;
-      if(nx&&nx.classList.contains('grow')){nx.remove();return;}
-      const r=document.createElement('tr'); r.className='grow';
-      const td=document.createElement('td');
-      td.colSpan=tr.children.length; td.innerHTML=growHTML(p);
-      r.appendChild(td); tr.after(r);
-    }
-  });
-});
-
-document.getElementById('rA').addEventListener('click',e=>{
-  const b=e.target.closest('[data-act]'); if(!b) return;
-  const tr=b.closest('tr'); const p=saved.alumni.find(x=>x.id===tr.dataset.id);
-  if(!p) return;
-  if(b.dataset.act==='adel'){
-    if(!confirm('刪除畢業生「'+(p.name||'未命名')+'」？')) return;
-    saved.alumni=saved.alumni.filter(x=>x.id!==p.id); rsave(); drawRoster(); return;
-  }
-  const nx=tr.nextElementSibling;
-  if(nx&&nx.classList.contains('grow')){nx.remove();return;}
-  const r=document.createElement('tr'); r.className='grow';
-  const td=document.createElement('td'); td.colSpan=tr.children.length;
-  td.innerHTML=growHTML(p); r.appendChild(td); tr.after(r);
-});
-
-document.getElementById('promote').onclick=()=>{
-  if(!saved.roster.length){rmsg('名冊空嘅，冇嘢可以升。');return;}
-  const n3=saved.roster.filter(p=>p.yr>=3).length;
-  if(!confirm('全隊升一個年級。'+(n3?n3+' 個三年級會移去畢業生。':'')+'撤銷唔到，繼續？'))
-    return;
-  const stay=[];
-  saved.roster.forEach(p=>{
-    if(p.yr>=3){ saved.alumni.push(p); return; }
-    const cur=snap(p,p.yr);
-    p.yr=p.yr+1;
-    p.snaps[p.yr]=Object.assign({},cur);
-    stay.push(p);
-  });
-  saved.roster=stay; rsave(); drawRoster();
-  rmsg('升完。'+(n3?n3+' 個三年級已移去畢業生。':'')+'新年級嘅數值先抄住舊數，練完之後改返就得。');
-};
-
-/* 匯出 / 匯入 */
-document.getElementById('expJ').onclick=()=>{
-  const blob=new Blob([JSON.stringify({roster:saved.roster,alumni:saved.alumni},null,1)],
-    {type:'application/json'});
-  const a=document.createElement('a');
-  a.href=URL.createObjectURL(blob);
-  a.download='eikan-roster-'+new Date().toISOString().slice(0,10)+'.json';
-  document.body.appendChild(a); a.click(); a.remove();
-  setTimeout(()=>URL.revokeObjectURL(a.href),4000);
-  rmsg('已匯出。將個 .json 檔放去 iCloud 或者 Google Drive，換機或者清瀏覽器之後匯入返就得。');
-};
-document.getElementById('impJ').onclick=()=>document.getElementById('impF').click();
-document.getElementById('impF').onchange=e=>{
-  const f=e.target.files&&e.target.files[0]; if(!f) return;
-  const fr=new FileReader();
-  fr.onload=()=>{
-    try{
-      const d=JSON.parse(fr.result);
-      if(!d||typeof d!=='object') throw 0;
-      const r=Array.isArray(d.roster)?d.roster:[], al=Array.isArray(d.alumni)?d.alumni:[];
-      if(!r.length&&!al.length) throw 0;
-      if(!confirm('匯入 '+r.length+' 個在隊、'+al.length+
-        ' 個畢業生。呢個會覆蓋而家名冊入面嘅資料，繼續？')) return;
-      saved.roster=r; saved.alumni=al; rsave(); drawRoster();
-      rmsg('匯入成功：在隊 '+r.length+' 人、畢業生 '+al.length+' 人。');
-    }catch(err){ rmsg('讀唔到呢個檔。要揀返由「匯出備份」下載嗰個 .json。'); }
-    e.target.value='';
-  };
-  fr.readAsText(f);
-};
-
-drawRoster();
-
 </script></body></html>
