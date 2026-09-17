@@ -483,4 +483,229 @@ document.getElementById('gRes').innerHTML=
  '</tbody></table></div>';
 
 go(location.hash.slice(1)||'home', false);
+
+/* ===== 我嘅球隊（球員名冊） ===== */
+(function(){
+const GKEYS=['meet','power','speed','arm','field','catch','control','stamina'];
+function gradeOf(v){v=Number(v);if(!Number.isFinite(v)||v<=0)return null;
+ if(v>=90)return'S';if(v>=80)return'A';if(v>=70)return'B';if(v>=60)return'C';
+ if(v>=50)return'D';if(v>=40)return'E';if(v>=20)return'F';return'G';}
+const R=(saved.roster&&typeof saved.roster==='object'&&!Array.isArray(saved.roster))?saved.roster:(saved.roster={});
+if(!Array.isArray(R.players))R.players=[];
+if(!Array.isArray(R.alumni))R.alumni=[];
+const keysOf=k=>k==='P'?pitcherKeys:batterKeys;
+let uid=0;
+const newId=()=>'p'+Date.now().toString(36)+(uid++).toString(36);
+const rB=document.getElementById('rB'),rP=document.getElementById('rP'),
+      rA=document.getElementById('rA'),rMsg=document.getElementById('rMsg'),
+      newYr=document.getElementById('newYr');
+function save(){saved.roster=R;persist();}
+function msg(t){rMsg.textContent=t||'';rMsg.hidden=!t;
+ clearTimeout(msg._t);if(t)msg._t=setTimeout(()=>{rMsg.hidden=true;},5000);}
+const filled=o=>!!o&&Object.keys(o).some(k=>o[k]!==undefined&&o[k]!=='');
+function empty(t){const d=document.createElement('p');d.className='empty';d.textContent=t;return d;}
+
+function norm(p){
+ const o={id:(p&&p.id)||newId(),
+  name:(p&&typeof p.name==='string')?p.name:'',
+  kind:(p&&p.kind==='P')?'P':'B',
+  yr:[1,2,3].indexOf(Number(p&&p.yr))>=0?Number(p.yr):1,yrs:{}};
+ const src=(p&&p.yrs&&typeof p.yrs==='object')?p.yrs:{};
+ [1,2,3].forEach(n=>{const s=src[n]||src[String(n)];
+  if(s&&typeof s==='object'){const t={};
+   keysOf(o.kind).forEach(k=>{const v=Number(s[k]);
+    if(Number.isFinite(v))t[k]=Math.max(F[k][1],Math.min(F[k][2],Math.round(v)));});
+   if(Object.keys(t).length)t&&(o.yrs[n]=t);}});
+ if(!o.yrs[o.yr])o.yrs[o.yr]={};
+ return o;}
+
+function statLine(p,yr,box){
+ box.replaceChildren();
+ const keys=keysOf(p.kind),cur=p.yrs[yr]||{},prev=p.yrs[yr-1];
+ let n=0;
+ keys.forEach(k=>{
+  const v=cur[k];if(v===undefined||v==='')return;n++;
+  const l=document.createElement('label');l.append(F[k][0]);
+  const line=document.createElement('span');
+  if(GKEYS.indexOf(k)>=0){const g=gradeOf(v);
+   if(g){const b=document.createElement('span');b.className='g g'+g;b.textContent=g;
+    line.appendChild(b);line.append(' ');}}
+  line.append(String(v));
+  if(prev&&prev[k]!==undefined&&prev[k]!==''){
+   const d=Number(v)-Number(prev[k]);
+   const s=document.createElement('span');s.className=d>0?'up':'same';
+   s.textContent=' '+(d>0?'+'+d:(d<0?String(d):'±0'));
+   line.appendChild(s);}
+  l.appendChild(line);box.appendChild(l);});
+ return n;}
+
+function card(p){
+ const keys=keysOf(p.kind);
+ if(!p.yrs[p.yr])p.yrs[p.yr]={};
+ const cur=p.yrs[p.yr];
+ const el=document.createElement('div');el.className='pcard';
+
+ const ph=document.createElement('div');ph.className='ph';
+ const nm=document.createElement('input');nm.className='nm';nm.type='text';
+ nm.placeholder='選手名';nm.value=p.name||'';nm.setAttribute('aria-label','選手名');
+ nm.oninput=()=>{p.name=nm.value;save();};
+ ph.appendChild(nm);
+
+ const yl=document.createElement('label');yl.className='w';
+ yl.style.cssText='display:flex;flex-direction:column;gap:2px;font-size:11.5px;color:var(--ink2);font-weight:700';
+ yl.append('年級');
+ const ys=document.createElement('select');ys.className='w';
+ [1,2,3].forEach(n=>{const o=document.createElement('option');o.value=String(n);
+  o.textContent=n+' 年級'+(n!==p.yr&&filled(p.yrs[n])?'（有數）':'');ys.appendChild(o);});
+ ys.value=String(p.yr);
+ ys.onchange=()=>changeYear(p,Number(ys.value));
+ yl.appendChild(ys);ph.appendChild(yl);
+
+ const yb=document.createElement('span');yb.className='yb y'+p.yr;yb.textContent=p.yr+'年';
+ ph.appendChild(yb);
+
+ const acts=document.createElement('div');acts.className='acts';
+ const del=document.createElement('button');del.type='button';del.className='mini del';
+ del.textContent='刪除';
+ del.onclick=()=>{if(confirm('刪除「'+(p.name||'未命名')+'」？撤銷唔到。')){
+  R.players=R.players.filter(x=>x!==p);save();draw();msg('已刪除。');}};
+ acts.appendChild(del);ph.appendChild(acts);
+ el.appendChild(ph);
+
+ const pg=document.createElement('div');pg.className='pg';
+ const pe=document.createElement('div');pe.className='pe';
+ const cap=document.createElement('p');cap.className='core';
+ cap.style.cssText='margin:9px 0 0;font-size:12.5px';
+
+ function refresh(){
+  const n=statLine(p,p.yr,pe);
+  const prev=p.yrs[p.yr-1];
+  pe.hidden=!n;
+  if(!n){cap.textContent='未填數值。';}
+  else if(filled(prev)){cap.textContent='而家係 '+p.yr+' 年級，右邊綠色數字係同 '+(p.yr-1)+' 年級比嘅升幅。';}
+  else{cap.textContent='而家係 '+p.yr+' 年級。等有上一年嘅數，就會顯示升幅。';}}
+
+ keys.forEach(k=>{
+  const l=document.createElement('label');l.append(F[k][0]);
+  const i=document.createElement('input');i.type='number';
+  i.min=F[k][1];i.max=F[k][2];i.step=1;
+  i.value=(cur[k]!==undefined&&cur[k]!=='')?String(cur[k]):'';
+  i.oninput=()=>{if(i.value===''){delete cur[k];}else{cur[k]=Number(i.value);}
+   save();refresh();};
+  l.appendChild(i);pg.appendChild(l);});
+
+ el.appendChild(pg);el.appendChild(cap);el.appendChild(pe);
+ refresh();
+ return el;}
+
+function alumniCard(p){
+ const el=document.createElement('div');el.className='acard';
+ const h=document.createElement('div');h.className='ph';
+ const nm=document.createElement('b');nm.textContent=p.name||'未命名';
+ h.appendChild(nm);
+ const t=document.createElement('span');t.className='yb tmy';
+ t.textContent=p.kind==='P'?'投手':'野手';h.appendChild(t);
+ const acts=document.createElement('div');acts.className='acts';
+ const back=document.createElement('button');back.type='button';back.className='mini';
+ back.textContent='放返三年級';
+ back.onclick=()=>{R.alumni=R.alumni.filter(x=>x!==p);p.yr=3;R.players.push(p);
+  save();draw();msg('已放返球隊（三年級）。');};
+ const del=document.createElement('button');del.type='button';del.className='mini del';
+ del.textContent='刪除';
+ del.onclick=()=>{if(confirm('刪除畢業生「'+(p.name||'未命名')+'」？撤銷唔到。')){
+  R.alumni=R.alumni.filter(x=>x!==p);save();draw();msg('已刪除。');}};
+ acts.appendChild(back);acts.appendChild(del);h.appendChild(acts);
+ el.appendChild(h);
+ [1,2,3].forEach(n=>{
+  if(!filled(p.yrs[n]))return;
+  const cap=document.createElement('p');cap.className='core';
+  cap.style.cssText='margin:8px 0 0;font-size:12.5px';cap.textContent=n+' 年級';
+  const box=document.createElement('div');box.className='pe';
+  statLine(p,n,box);
+  el.appendChild(cap);el.appendChild(box);});
+ return el;}
+
+function changeYear(p,to){
+ const from=p.yr;if(to===from)return;
+ if(!filled(p.yrs[to])&&filled(p.yrs[from])){
+  p.yrs[to]=p.yrs[from];delete p.yrs[from];
+  msg('已把「'+(p.name||'未命名')+'」嘅數值搬去 '+to+' 年級。');}
+ else msg('已切換到 '+to+' 年級。');
+ p.yr=to;if(!p.yrs[to])p.yrs[to]={};
+ save();draw();}
+
+function addPlayer(kind){
+ const yr=Number(newYr.value)||1;
+ const p={id:newId(),name:'',kind:kind,yr:yr,yrs:{}};p.yrs[yr]={};
+ R.players.push(p);save();draw();
+ const box=kind==='P'?rP:rB,ins=box.querySelectorAll('input.nm');
+ if(ins.length)ins[ins.length-1].focus();
+ msg('已加一位'+(kind==='P'?'投手':'野手')+'（'+yr+' 年級）。');}
+
+function promote(){
+ if(!R.players.length){msg('而家未有選手。');return;}
+ if(!confirm('全隊升一個年級？三年級會移去畢業生保存。呢個動作撤銷唔到，建議先匯出備份。'))return;
+ let grad=0;const keep=[];
+ R.players.forEach(p=>{
+  if(p.yr>=3){R.alumni.push(p);grad++;return;}
+  const nx=p.yr+1;
+  if(!filled(p.yrs[nx]))p.yrs[nx]=Object.assign({},p.yrs[p.yr]||{});
+  p.yr=nx;keep.push(p);});
+ R.players=keep;save();draw();
+ msg('已全隊升一個年級'+(grad?('，'+grad+' 位三年級移去畢業生。'):'。'));}
+
+function draw(){
+ rB.replaceChildren();rP.replaceChildren();rA.replaceChildren();
+ const bs=R.players.filter(p=>p.kind==='B'),ps=R.players.filter(p=>p.kind==='P');
+ if(bs.length)bs.forEach(p=>rB.appendChild(card(p)));
+ else rB.appendChild(empty('未有野手。撳上面「＋ 加野手」開始。'));
+ if(ps.length)ps.forEach(p=>rP.appendChild(card(p)));
+ else rP.appendChild(empty('未有投手。撳上面「＋ 加投手」開始。'));
+ if(R.alumni.length)R.alumni.forEach(p=>rA.appendChild(alumniCard(p)));
+ else rA.appendChild(empty('未有畢業生。全隊升年級之後，三年級會自動移到呢度。'));}
+
+document.getElementById('addB').onclick=()=>addPlayer('B');
+document.getElementById('addP').onclick=()=>addPlayer('P');
+document.getElementById('promote').onclick=promote;
+
+document.getElementById('expJ').onclick=()=>{
+ const d=new Date(),pad=n=>String(n).padStart(2,'0');
+ const data={app:'eikan-helper',type:'roster',v:2,at:d.toISOString(),roster:R};
+ const url=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}));
+ const a=document.createElement('a');a.href=url;
+ a.download='eikan-roster-'+d.getFullYear()+pad(d.getMonth()+1)+pad(d.getDate())+'.json';
+ document.body.appendChild(a);a.click();a.remove();
+ setTimeout(()=>URL.revokeObjectURL(url),2000);
+ msg('已匯出備份（'+R.players.length+' 位選手、'+R.alumni.length+' 位畢業生）。');};
+
+const impF=document.getElementById('impF');
+impF.onchange=()=>{
+ const f=impF.files&&impF.files[0];if(!f)return;
+ const fr=new FileReader();
+ fr.onload=()=>{
+  try{
+   const o=JSON.parse(String(fr.result));
+   const src=(o&&o.roster&&typeof o.roster==='object')?o.roster:o;
+   const pl=Array.isArray(src&&src.players)?src.players:null;
+   if(!pl){msg('呢個檔案讀唔到球隊資料，請揀由「匯出備份」出嘅 JSON。');impF.value='';return;}
+   const al=Array.isArray(src.alumni)?src.alumni:[];
+   if((R.players.length||R.alumni.length)&&
+      !confirm('匯入會覆蓋現有資料（'+R.players.length+' 位選手、'+R.alumni.length+' 位畢業生）。繼續？')){
+    impF.value='';return;}
+   R.players=pl.map(norm);R.alumni=al.map(norm);
+   save();draw();
+   msg('已匯入 '+R.players.length+' 位選手、'+R.alumni.length+' 位畢業生。');
+  }catch(e){msg('讀唔到：檔案唔係有效嘅 JSON 備份。');}
+  impF.value='';};
+ fr.onerror=()=>{msg('讀檔失敗，請再試一次。');impF.value='';};
+ fr.readAsText(f);};
+
+const impL=document.querySelector('label.mini[for="impF"]');
+if(impL)impL.addEventListener('keydown',e=>{
+ if(e.key==='Enter'||e.key===' '){e.preventDefault();impF.click();}});
+
+R.players=R.players.map(norm);R.alumni=R.alumni.map(norm);
+draw();
+})();
+
 </script></body></html>
