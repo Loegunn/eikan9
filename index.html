@@ -181,6 +181,16 @@ footer{max-width:880px;margin:0 auto;padding:24px 15px 40px;color:var(--ink3);
 .pbox label{display:block;font-size:13px;color:var(--ink2);margin-bottom:8px}
 .pbox .note{margin:8px 0 0;padding:7px 10px;font-size:12.5px;background:#fff}
 .pbox .pb-head{font-size:12.5px;color:var(--ink3);font-weight:700}
+.redbox{background:#fdecef;border:2px solid #f0b6c2;border-radius:9px;
+  padding:8px 10px;margin-bottom:9px}
+.redbox b{color:#c02c44;font-size:14px}
+.redbox p{margin:4px 0 0;font-size:12.5px;color:var(--ink2)}
+.pcard label.sp{grid-column:1/-1}
+#bp-out{margin-top:12px}
+.bpv{font-size:clamp(22px,5.5vw,30px);font-weight:900;margin:2px 0 6px}
+.bpv.stop{color:#c02c44}.bpv.warn2{color:#c07a12}.bpv.go{color:#2f8a34}
+.bpr{margin:0 0 4px;font-size:14px;color:var(--ink)}
+.bpn{font-size:12.5px;color:var(--ink2);margin-top:8px}
 .up{color:#1a8f3c;font-weight:800}
 .same{color:var(--ink3)}
 .empty{color:var(--ink2);background:var(--paper);border:2px dashed #cfe0f2;
@@ -199,7 +209,7 @@ label.mini:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
 </div></header>
 
 <nav class="tabs" id="tabs"><div class="inner">
-<button class="tab" data-go="planner">下一項練乜</button><button class="tab" data-go="sources">參考網址</button><button class="tab" data-go="home">打順表</button><button class="tab" data-go="roster">我嘅球隊</button><button class="tab" data-go="news">2026變更點</button><button class="tab" data-go="tactics">強戰術2026</button><button class="tab" data-go="cal">年間日程</button><button class="tab" data-go="seikaku">性格差異</button><button class="tab" data-go="read-first">睇之前要知</button><button class="tab" data-go="targets">位置別目標</button><button class="tab" data-go="steps">育成步驟</button><button class="tab" data-go="icons">進行圖示</button><button class="tab" data-go="skills">特能一覽</button><button class="tab" data-go="homerun">全壘打主砲</button><button class="tab" data-go="roles">其他定位</button><button class="tab" data-go="tensei">轉生選手查詢</button><button class="tab" data-go="quick">三年模式速查</button>
+<button class="tab" data-go="planner">下一項練乜</button><button class="tab" data-go="sources">參考網址</button><button class="tab" data-go="home">打順表</button><button class="tab" data-go="roster">我嘅球隊</button><button class="tab" data-go="bullpen">換唔換投</button><button class="tab" data-go="news">2026變更點</button><button class="tab" data-go="tactics">強戰術2026</button><button class="tab" data-go="cal">年間日程</button><button class="tab" data-go="seikaku">性格差異</button><button class="tab" data-go="read-first">睇之前要知</button><button class="tab" data-go="targets">位置別目標</button><button class="tab" data-go="steps">育成步驟</button><button class="tab" data-go="icons">進行圖示</button><button class="tab" data-go="skills">特能一覽</button><button class="tab" data-go="homerun">全壘打主砲</button><button class="tab" data-go="roles">其他定位</button><button class="tab" data-go="tensei">轉生選手查詢</button><button class="tab" data-go="quick">三年模式速查</button>
 </div></nav>
 
 <div class="wrap">
@@ -207,6 +217,29 @@ label.mini:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
 <p class="lead">先睇下一項練乜，再按需要查九個攻略部分。</p><button class="lineup" data-go="roster"><span class="num">1</span><span class="lt"><b>我嘅球隊</b><em>存一次，年年讀返，睇一年級到三年級嘅變化</em></span></button><button class="lineup" data-go="news"><span class="num">2</span><span class="lt"><b>2026 變更點</b><em>由 2024 轉過嚟要知嘅嘢、戰績商店、評判條件</em></span></button><button class="lineup" data-go="tactics"><span class="num">3</span><span class="lt"><b>強戰術 2026</b><em>邊個比賽指示真係有效，四個版本實測排名</em></span></button><button class="lineup" data-go="cal"><span class="num">4</span><span class="lt"><b>年間日程</b><em>邊日要停、消赤特同攞青特嘅完整條件</em></span></button><button class="lineup" data-go="seikaku"><span class="num">5</span><span class="lt"><b>性格差異</b><em>經驗加成、傳令、隊長同部員事件</em></span></button><button class="lineup" data-go="planner"><span class="num">★</span><span class="lt"><b>我隻球員下一項練乜？</b><em>輸入能力 · 基礎／進階 · 日文練習名</em></span></button><button class="lineup" data-go="sources"><span class="num">↗</span><span class="lt"><b>參考網址與版本</b><em>來源支持乜、邊啲係本站建議</em></span></button>
 <button class="lineup" data-go="read-first"><span class="num">6</span><span class="lt"><b>睇之前要知</b><em>四個可信度標籤同幾個陷阱</em></span></button><button class="lineup" data-go="targets"><span class="num">7</span><span class="lt"><b>位置別目標</b><em>七個位置嘅中途同最終能力目標</em></span></button><button class="lineup" data-go="steps"><span class="num">8</span><span class="lt"><b>育成步驟</b><em>按位置查參考路線，可按短板調整</em></span></button><button class="lineup" data-go="icons"><span class="num">9</span><span class="lt"><b>進行圖示</b><em>每張圖示加乜，同兩個乘數機制</em></span></button><button class="lineup" data-go="skills"><span class="num">10</span><span class="lt"><b>特能一覽</b><em>推薦特殊能力同互斥關係</em></span></button><button class="lineup" data-go="homerun"><span class="num">11</span><span class="lt"><b>全壘打主砲</b><em>想打全壘打要練幾多、點練</em></span></button><button class="lineup" data-go="roles"><span class="num">12</span><span class="lt"><b>其他定位</b><em>安打上壘、快腿盜壘、守備型</em></span></button><button class="lineup" data-go="tensei"><span class="num">13</span><span class="lt"><b>轉生選手查詢</b><em>按年份、地區、位置搵轉生選手</em></span></button><button class="lineup" data-go="quick"><span class="num">14</span><span class="lt"><b>三年模式速查</b><em>共通優先次序同日中對照</em></span></button>
 </section>
+<section class="view" id="v-bullpen"><h2>換唔換投</h2>
+<p class="lede">比賽途中用。唔好淨係睇球數 —— 投手仲壓得住就唔應該換走佢。填完會即刻出判斷。</p>
+<div class="pcard">
+<div class="pg">
+  <label>而家投咗幾多球<input id="bp-pit" type="number" min="0" max="250" value="90"></label>
+  <label>呢個投手嘅體力值<input id="bp-sta" type="number" min="1" max="200" value="78"></label>
+  <label>最近三局失幾多分<input id="bp-run" type="number" min="0" max="30" value="0"></label>
+  <label>比分差（領先正數／落後負數）<input id="bp-gap" type="number" min="-30" max="30" value="0"></label>
+</div>
+<div class="pe">
+  <label>而家連續被安打<select id="bp-hit">
+    <option value="0">冇</option><option value="2">連續 2 支</option>
+    <option value="3">連續 3 支或以上</option></select></label>
+  <label>比賽性質<select id="bp-kind">
+    <option value="prac">練習賽</option><option value="early">大會早段</option>
+    <option value="final">大會決勝</option><option value="koshien">甲子園</option></select></label>
+  <label>之後兩日內仲有冇波打<select id="bp-next">
+    <option value="no">冇，打完就休息</option><option value="yes">有</option></select></label>
+</div>
+<div id="bp-out"></div>
+</div>
+</section>
+
 <section class="view" id="v-roster"><h2>我嘅球隊</h2>
 <p class="lede">入一次就唔使再入。每個選手按年級分開記，所以你睇得到同一個人由一年級到三年級變咗幾多。資料存喺你部機嘅瀏覽器，換機或者清除瀏覽資料之前，記得先撳「匯出備份」。</p>
 <div class="rbar">
@@ -870,6 +903,10 @@ function cardHTML(p){
     t+='<label>キャッチャー<select class="f-catcher">'+opt(GRADE,p.catcher)+
        '</select></label>';
   }
+  t+='<label class="sp">青特（用逗號分開）<input class="f-blue" data-sp="blue" value="'+
+     esc(p.blue||'')+'" placeholder="例：ストライク先行, 尻上がり"></label>';
+  t+='<label class="sp">赤特（用逗號分開）<input class="f-red" data-sp="red" value="'+
+     esc(p.red||'')+'" placeholder="例：ボール先行, 一発"></label>';
   t+='</div></div>';
   return t;
 }
@@ -924,6 +961,12 @@ function planVals(p){
 function planBoxHTML(p){
   const r=planVals(p), v=r.v, miss=r.miss, pitch=isP(p);
   let t='<div class="pbox">';
+  const reds=(p.red||'').split(/[,、，]/).map(x=>x.trim()).filter(Boolean);
+  if(reds.length){
+    t+='<div class="redbox"><b>先消赤特：'+esc(reds.join('、'))+'</b>'+
+       '<p>赤特對比賽嘅影響大過 1-2 點能力值。消除方法：對應嘅青特覆蓋、'+
+       '特殊能力本、畢業生職業球員格、或者 6/26–7/2 同 9/8–9/14 踩藍格觸發特別指導。</p></div>';
+  }
   if(!pitch){
     t+='<label>育成定位<select class="f-role">'+
       ROLES.map(x=>'<option value="'+x[0]+'"'+(v.role===x[0]?' selected':'')+
@@ -1021,6 +1064,11 @@ document.getElementById('addP').onclick=()=>addPlayer(true);
     const c=e.target.closest('.pcard'); if(!c) return;
     const p=saved.roster.find(x=>x.id===c.dataset.id); if(!p) return;
     if(e.target.dataset.f==='name'){p.name=e.target.value;rsave();return;}
+    if(e.target.dataset.sp){
+      p[e.target.dataset.sp]=e.target.value;
+      rsave(); refreshPlan(c,p);
+      return;
+    }
     if(e.target.dataset.k){
       const v=e.target.value;
       snap(p,p.yr)[e.target.dataset.k]= v===''?'':Number(v);
@@ -1136,4 +1184,65 @@ document.getElementById('impF').onchange=e=>{
 
 drawRoster();
 
+/* ================= 換唔換投 ================= */
+(function(){
+  const ids=['bp-pit','bp-sta','bp-run','bp-gap','bp-hit','bp-kind','bp-next'];
+  const el={}; ids.forEach(i=>el[i]=document.getElementById(i));
+  const out=document.getElementById('bp-out');
+  if(!out) return;
+
+  function judge(){
+    const pit=+el['bp-pit'].value||0, sta=+el['bp-sta'].value||1;
+    const run=+el['bp-run'].value||0, gap=+el['bp-gap'].value||0;
+    const hit=+el['bp-hit'].value||0;
+    const kind=el['bp-kind'].value, nxt=el['bp-next'].value;
+
+    const elim=(kind==='final'||kind==='koshien');
+    let soft=Math.round(sta*1.2), hard=Math.round(sta*1.6);
+    if(elim) hard=Math.round(hard*1.15);
+    if(kind==='prac'){ soft=Math.round(sta*0.8); hard=Math.round(sta*1.1); }
+
+    const why=[], note=[];
+    let v=0; // 0 繼續 1 準備 2 即刻換
+
+    if(hit>=3){ v=2; why.push('連續 3 支安打 — 對手已經對到焦，唔好等第四支'); }
+    else if(hit===2&&run>=2){ v=2; why.push('連續 2 支安打，加最近三局已經失 '+run+' 分'); }
+    else if(hit===2){ v=Math.max(v,1); why.push('連續 2 支安打 — 準備定牛棚'); }
+
+    if(run>=3){ v=2; why.push('最近三局失 '+run+' 分 — 已經崩'); }
+    else if(run===2){ v=Math.max(v,1); why.push('最近三局失 2 分 — 開始被捉到'); }
+
+    if(pit>=hard){ v=2; why.push('球數 '+pit+' 已過硬線 '+hard+'（體力 '+sta+'）'); }
+    else if(pit>=soft){
+      if(run===0&&hit===0){
+        why.push('球數 '+pit+' 過咗警戒線 '+soft+'，但近三局零失分、冇連續安打 — 仲壓得住');
+        note.push('球數本身唔係換人理由。淨係球數到咗而狀態仲好，繼續投。');
+      }else{ v=Math.max(v,1); why.push('球數 '+pit+' 過警戒線 '+soft+'，而且已經有失分跡象'); }
+    }
+
+    if(kind==='prac'&&pit>=soft){ v=Math.max(v,1); why.push('練習賽 — 唔使谷，留體力兼俾下級生上'); }
+
+    if(v<2&&gap>=5&&nxt==='yes'&&pit>=soft*0.8){
+      v=Math.max(v,1);
+      why.push('領先 '+gap+' 分而兩日內仲有波 — 可以換人留力');
+    }
+    if(elim&&nxt==='no'&&v===1&&run===0&&hit===0){
+      v=0;
+      why.push('淘汰賽最後一場，冇下一場要留力 — 唔好為球數換走壓得住嘅先發');
+    }
+    if(elim) note.push('淘汰賽冇「留力俾下場」呢回事，除非兩日內真係仲有波打。');
+    if(!why.length) why.push('球數、失分、被安打三樣都未去到換人門檻');
+
+    const lab=['繼續投','準備定，下一局再睇','即刻換'][v];
+    const cls=['go','warn2','stop'][v];
+    let t='<div class="bpv '+cls+'">'+lab+'</div>';
+    why.forEach(w=>{t+='<p class="bpr">· '+w+'</p>';});
+    t+='<p class="bpn">警戒線 '+soft+' 球／硬線 '+hard+' 球（按體力 '+sta+' 同比賽性質計）。';
+    if(note.length) t+='<br>'+note.join('<br>');
+    t+='</p>';
+    out.innerHTML=t;
+  }
+  ids.forEach(i=>{el[i].addEventListener('input',judge);el[i].addEventListener('change',judge);});
+  judge();
+})();
 </script></body></html>
