@@ -171,6 +171,16 @@ footer{max-width:880px;margin:0 auto;padding:24px 15px 40px;color:var(--ink3);
 .mini.del{background:#ffe9ec;border-color:#ffc3cd;color:#b02a40}
 .gbox{margin-top:10px;padding-top:9px;border-top:2px solid var(--blue-l)}
 .gbox table{min-width:340px;font-size:13.5px}
+.pbox{margin-top:10px;padding:11px 12px;border-top:2px solid var(--blue-l);
+  background:var(--blue-l);border-radius:10px}
+.pbox .pb-next{font-size:clamp(19px,4.6vw,25px);color:var(--blue-d);
+  font-weight:900;overflow-wrap:anywhere;margin:7px 0 3px}
+.pbox p{margin:4px 0;font-size:14px;color:var(--ink)}
+.pbox ol{margin:4px 0 0 20px;padding:0;font-size:13.5px;color:var(--ink2)}
+.pbox li{margin:3px 0}
+.pbox label{display:block;font-size:13px;color:var(--ink2);margin-bottom:8px}
+.pbox .note{margin:8px 0 0;padding:7px 10px;font-size:12.5px;background:#fff}
+.pbox .pb-head{font-size:12.5px;color:var(--ink3);font-weight:700}
 .up{color:#1a8f3c;font-weight:800}
 .same{color:var(--ink3)}
 .empty{color:var(--ink2);background:var(--paper);border:2px dashed #cfe0f2;
@@ -895,6 +905,71 @@ function growHTML(p){
   return t;
 }
 
+const ROLES=[['basic','基礎：補短板'],['hr','進階：全壘打主砲'],
+  ['hit','進階：安打上壘'],['run','進階：快腿'],['def','進階：守備']];
+
+function planVals(p){
+  const s=snap(p,p.yr), ks=keysOf(p), miss=[], v={};
+  ks.forEach(k=>{ if(s[k]===''||s[k]==null) miss.push(SHORT[k]);
+                  else v[k]=Number(s[k]); });
+  v.pos=isP(p)?'投手':p.pos;
+  v.role=p.role||'basic';
+  v.ph=p.ph||'unknown';
+  v.catcher=p.catcher||'未確認';
+  v.throw=p.throw||'未確認';
+  v['pitch-role']=(p.prole==='relief')?'relief':'starter';
+  return {v,miss};
+}
+
+function planBoxHTML(p){
+  const r=planVals(p), v=r.v, miss=r.miss, pitch=isP(p);
+  let t='<div class="pbox">';
+  if(!pitch){
+    t+='<label>育成定位<select class="f-role">'+
+      ROLES.map(x=>'<option value="'+x[0]+'"'+(v.role===x[0]?' selected':'')+
+        '>'+x[1]+'</option>').join('')+'</select></label>';
+  }
+  if(miss.length)
+    return t+'<p class="warn">仲有 '+miss.join('、')+' 未填，填完即刻出建議。</p></div>';
+  if(pitch&&(v.breaks<v.pitches||v.breaks>7*v.pitches))
+    return t+'<p class="warn">總變化量應介乎球種數同球種數 × 7 之間。</p></div>';
+  const q=makePlan(v);
+  const roleTxt=pitch?(v['pitch-role']==='starter'?'先發':'短局數後援')
+    :(ROLES.find(x=>x[0]===v.role)||ROLES[0])[1];
+  t+='<div class="pb-head">'+v.pos+' · '+roleTxt+'</div>';
+  if(q.length){
+    const f=q[0];
+    t+='<div class="pb-next">'+F[f.k][3]+'</div>';
+    t+='<p><b>'+F[f.k][0]+'：'+f.from+' → '+f.to+'</b></p>';
+    t+='<p>'+f.why+'</p>';
+    if(q.length>1){
+      t+='<p><b>達標後再檢查</b></p><ol>';
+      q.slice(1,5).forEach(x=>{t+='<li>'+F[x.k][3]+' → '+x.to+'：'+x.why+'</li>';});
+      t+='</ol>';
+    }else t+='<p>呢項達標後，按實戰表現再揀定位。</p>';
+  }else{
+    t+='<div class="pb-next">目前路線已達標</div>'+
+       '<p>可以換定位，或者按比賽短板微調。</p>';
+  }
+  if(!pitch){
+    const paused=batterKeys.filter(k=>!q.some(x=>x.k===k));
+    t+='<p class="note">暫停專練：'+
+      (paused.map(k=>F[k][0]).join('、')||'按以上先後次序。')+'</p>';
+    if(v.ph==='unknown')
+      t+='<p class="note">長打特能未確認：去能力詳細睇 パワーヒッター／アーチスト。</p>';
+    if(v.pos==='捕手')
+      t+='<p class="note">キャッチャー：'+v.catcher+'。練捕球唔會改善呢個等級。</p>';
+    if(['E','F','G'].includes(v.throw))
+      t+='<p class="note">送球 '+v.throw+'：肩力練習唔會直接升送球等級。</p>';
+  }
+  return t+'</div>';
+}
+
+function refreshPlan(card,p){
+  const box=card&&card.querySelector('.pbox');
+  if(box) box.outerHTML=planBoxHTML(p);
+}
+
 function alumniHTML(){
   if(!saved.alumni.length) return '<p class="empty">仲未有畢業生。</p>';
   return saved.alumni.map(p=>{
@@ -949,13 +1024,14 @@ document.getElementById('addP').onclick=()=>addPlayer(true);
     if(e.target.dataset.k){
       const v=e.target.value;
       snap(p,p.yr)[e.target.dataset.k]= v===''?'':Number(v);
-      rsave();
+      rsave(); refreshPlan(c,p);
     }
   });
   box.addEventListener('change',e=>{
     const c=e.target.closest('.pcard'); if(!c) return;
     const p=saved.roster.find(x=>x.id===c.dataset.id); if(!p) return;
     const cl=e.target.classList, v=e.target.value;
+    if(cl.contains('f-role')){p.role=v;rsave();refreshPlan(c,p);return;}
     if(cl.contains('f-yr')){
       const oldY=p.yr, newY=Number(v);
       if(oldY!==newY){
@@ -972,7 +1048,7 @@ document.getElementById('addP').onclick=()=>addPlayer(true);
     if(cl.contains('f-ph')) p.ph=(v==='有其中一個')?'yes':(v==='兩者都冇'?'no':'unknown');
     if(cl.contains('f-throw')) p.throw=v;
     if(cl.contains('f-catcher')) p.catcher=v;
-    rsave();
+    rsave(); refreshPlan(c,p);
   });
   box.addEventListener('click',e=>{
     const b=e.target.closest('[data-act]'); if(!b) return;
@@ -982,7 +1058,12 @@ document.getElementById('addP').onclick=()=>addPlayer(true);
       if(!confirm('刪除「'+(p.name||'未命名')+'」？撤銷唔到。')) return;
       saved.roster=saved.roster.filter(x=>x.id!==p.id); rsave(); drawRoster(); return;
     }
-    if(b.dataset.act==='plan'){ toPlanner(p); return; }
+    if(b.dataset.act==='plan'){
+      const oldp=c.querySelector('.pbox');
+      if(oldp){oldp.remove();return;}
+      c.insertAdjacentHTML('beforeend',planBoxHTML(p));
+      return;
+    }
     if(b.dataset.act==='grow'){
       const old=c.querySelector('.gbox');
       if(old){old.remove();return;}
