@@ -186,6 +186,29 @@ footer{max-width:880px;margin:0 auto;padding:24px 15px 40px;color:var(--ink3);
 .redbox b{color:#c02c44;font-size:14px}
 .redbox p{margin:4px 0 0;font-size:12.5px;color:var(--ink2)}
 .pcard label.sp{grid-column:1/-1}
+.spwrap{margin-top:9px;padding-top:8px;border-top:1px dashed #cfe0f2;
+  display:flex;flex-wrap:wrap;gap:5px;align-items:center}
+.spnone{font-size:12.5px;color:var(--ink3)}
+.chip{display:inline-block;border-radius:999px;padding:3px 9px;font-size:12.5px;
+  font-weight:700;border:2px solid transparent;font-family:inherit}
+.chip.cb{background:#e2f0ff;color:#1160b8;border-color:#b9d9f8}
+.chip.cr{background:#fdecef;color:#c02c44;border-color:#f0b6c2}
+.chip.pick{cursor:pointer;opacity:.45;background:#fff;color:var(--ink3);
+  border-color:#d9e4ef}
+.chip.pick.on{opacity:1}
+.chip.pick.cb.on{background:#e2f0ff;color:#1160b8;border-color:#b9d9f8}
+.chip.pick.cr.on{background:#fdecef;color:#c02c44;border-color:#f0b6c2}
+.spbox{margin-top:10px;padding:10px 11px;border-top:2px solid var(--blue-l);
+  background:#f6faff;border-radius:10px}
+.sphd{font-size:12.5px;font-weight:700;color:var(--ink2);margin:9px 0 5px}
+.sphd:first-child{margin-top:0}
+.spg{display:flex;flex-wrap:wrap;gap:7px}
+.gsel{font-size:12.5px;color:var(--ink2);display:flex;align-items:center;gap:4px;
+  background:#fff;border:2px solid #cfe0f2;border-radius:8px;padding:3px 7px}
+.gsel select{border:none;background:transparent;font:inherit;font-weight:700;
+  color:var(--ink);padding:2px}
+.spc{display:flex;flex-wrap:wrap;gap:5px}
+.spnote{font-size:12px;color:var(--ink3);margin:9px 0 0}
 #bp-out{margin-top:12px}
 .bpv{font-size:clamp(22px,5.5vw,30px);font-weight:900;margin:2px 0 6px}
 .bpv.stop{color:#c02c44}.bpv.warn2{color:#c07a12}.bpv.go{color:#2f8a34}
@@ -903,11 +926,9 @@ function cardHTML(p){
     t+='<label>キャッチャー<select class="f-catcher">'+opt(GRADE,p.catcher)+
        '</select></label>';
   }
-  t+='<label class="sp">青特（用逗號分開）<input class="f-blue" data-sp="blue" value="'+
-     esc(p.blue||'')+'" placeholder="例：ストライク先行, 尻上がり"></label>';
-  t+='<label class="sp">赤特（用逗號分開）<input class="f-red" data-sp="red" value="'+
-     esc(p.red||'')+'" placeholder="例：ボール先行, 一発"></label>';
-  t+='</div></div>';
+  t+='</div><div class="spwrap">'+chipRow(p)+
+     '<button class="mini" data-act="sp">揀特能</button></div>';
+  t+='</div>';
   return t;
 }
 
@@ -942,6 +963,88 @@ function growHTML(p){
   return t;
 }
 
+/* ===== 特殊能力揀選 ===== */
+const SP_GRADED={
+  bat:[['チャンス','得分圈有人時嘅打擊'],['対左投手','面對左投'],
+       ['盗塁','偷壘成功率'],['走塁','跑壘判斷'],
+       ['回復','體力回復'],['ケガしにくさ','受傷機率']],
+  pit:[['対ピンチ','有人在壘時'],['対左打者','面對左打'],
+       ['打たれ強さ','被打後穩定度'],['ノビ','直球延伸'],
+       ['クイック','投球準備快慢'],['奪三振','搶三振'],
+       ['回復','體力回復'],['ケガしにくさ','受傷機率']]
+};
+const SP_ON={
+  bat:{blue:[['パワーヒッター','長打力上升'],['アーチスト','飛球易成全壘打'],
+      ['アベレージヒッター','安打率上升'],['広角打法','反方向都打得'],
+      ['内野安打○','內野滾地易成安打'],['選球眼','唔易追壞球'],
+      ['粘り打ち','兩好球後仍打得'],['初球○','第一球強'],
+      ['満塁男','滿壘時上升'],['意外性','偶爾爆長打'],
+      ['逆境○','落後時上升'],['ムードメーカー','提升隊友'],
+      ['存在感','削對方投手'],['対変化球○','應付變化球'],
+      ['アウトコースヒッター','外角強'],['インコースヒッター','內角強'],
+      ['ハイボールヒッター','高球強'],['ローボールヒッター','低球強'],
+      ['プルヒッター','拉打強'],['流し打ち','推打強'],
+      ['バント職人','觸擊成功率'],['守備職人','守備範圍']],
+   red:[['三振','兩好球後下降'],['併殺','易被雙殺'],
+      ['ムラ打ち','狀態時好時壞'],['エラー','易失誤'],['悪送球','傳球易出界']]},
+  pit:{blue:[['ストライク先行','好球數領先'],['尻上がり','越投越好'],
+      ['重い球','球質重'],['ポーカーフェイス','唔受氣氛影響'],
+      ['闘志','危機時上升'],['根性○','後段仍有力'],
+      ['リリース○','出手點難睇'],['テンポ○','投球節奏好'],
+      ['打球反応○','投手守備'],['牽制○','牽制強'],
+      ['低め○','低角度控得好'],['キレ○','變化球銳利']],
+   red:[['ボール先行','壞球數領先'],['一発','易被全壘打'],
+      ['乱調','第一局易崩'],['力配分','後段大跌'],
+      ['四球','易投四壞'],['短気','被打後失控'],
+      ['スロースターター','起步慢'],['暴投','易暴投']]}
+};
+const GRADES=['','A','B','C','D','E','F','G'];
+function gradeKind(g){ return 'ABC'.includes(g)?'blue':('EFG'.includes(g)?'red':'mid'); }
+function spSet(p){ return isP(p)?'pit':'bat'; }
+function spList(p,kind){
+  const k=spSet(p), g=p.spg||{}, on=p.spo||[], out=[];
+  (SP_GRADED[k]||[]).forEach(x=>{ const v=g[x[0]];
+    if(v&&gradeKind(v)===kind) out.push(x[0]+v); });
+  (SP_ON[k][kind]||[]).forEach(x=>{ if(on.indexOf(x[0])>=0) out.push(x[0]); });
+  const free=(kind==='red'?(p.red||''):(p.blue||'')).split(/[,、，]/)
+    .map(s=>s.trim()).filter(Boolean);
+  return out.concat(free);
+}
+function chipRow(p){
+  const b=spList(p,'blue'), r=spList(p,'red');
+  if(!b.length&&!r.length) return '<span class="spnone">未填特能</span>';
+  return r.map(x=>'<span class="chip cr">'+esc(x)+'</span>').join('')+
+         b.map(x=>'<span class="chip cb">'+esc(x)+'</span>').join('');
+}
+function spPickerHTML(p){
+  const k=spSet(p), g=p.spg||{}, on=p.spo||[];
+  let t='<div class="spbox"><div class="sphd">等級型（揀返遊戲入面顯示嘅字母）</div><div class="spg">';
+  SP_GRADED[k].forEach(x=>{
+    const cur=g[x[0]]||'';
+    t+='<label class="gsel" title="'+esc(x[1])+'">'+esc(x[0])+
+       '<select data-grade="'+esc(x[0])+'">'+
+       GRADES.map(v=>'<option value="'+v+'"'+(v===cur?' selected':'')+'>'+
+         (v||'—')+'</option>').join('')+'</select></label>';
+  });
+  t+='</div>';
+  [['blue','青特（好）'],['red','赤特（差）']].forEach(sec=>{
+    t+='<div class="sphd">'+sec[1]+'　撳一下＝有／冇</div><div class="spc">';
+    SP_ON[k][sec[0]].forEach(x=>{
+      const act=on.indexOf(x[0])>=0;
+      t+='<button type="button" class="chip pick c'+(sec[0]==='red'?'r':'b')+
+         (act?' on':'')+'" data-on="'+esc(x[0])+'" title="'+esc(x[1])+'">'+
+         esc(x[0])+'</button>';
+    });
+    t+='</div>';
+  });
+  t+='<div class="sphd">上面冇嘅，自己打（用逗號分開）</div>';
+  t+='<label class="sp">青特<input class="f-blue" data-sp="blue" value="'+
+     esc(p.blue||'')+'"></label>';
+  t+='<label class="sp">赤特<input class="f-red" data-sp="red" value="'+
+     esc(p.red||'')+'"></label>';
+  t+='<p class="spnote">列表只收常用嘅，唔係全部。撳住個名會顯示中文解釋。</p></div>';
+  return t;
+}
 const ROLES=[['basic','基礎：補短板'],['hr','進階：全壘打主砲'],
   ['hit','進階：安打上壘'],['run','進階：快腿'],['def','進階：守備']];
 
@@ -961,7 +1064,7 @@ function planVals(p){
 function planBoxHTML(p){
   const r=planVals(p), v=r.v, miss=r.miss, pitch=isP(p);
   let t='<div class="pbox">';
-  const reds=(p.red||'').split(/[,、，]/).map(x=>x.trim()).filter(Boolean);
+  const reds=spList(p,'red');
   if(reds.length){
     t+='<div class="redbox"><b>先消赤特：'+esc(reds.join('、'))+'</b>'+
        '<p>赤特對比賽嘅影響大過 1-2 點能力值。消除方法：對應嘅青特覆蓋、'+
@@ -1006,6 +1109,14 @@ function planBoxHTML(p){
       t+='<p class="note">送球 '+v.throw+'：肩力練習唔會直接升送球等級。</p>';
   }
   return t+'</div>';
+}
+
+function refreshChips(card,p){
+  const w=card&&card.querySelector('.spwrap');
+  if(!w) return;
+  const btn=w.querySelector('[data-act="sp"]');
+  w.innerHTML=chipRow(p);
+  w.appendChild(btn);
 }
 
 function refreshPlan(card,p){
@@ -1066,7 +1177,7 @@ document.getElementById('addP').onclick=()=>addPlayer(true);
     if(e.target.dataset.f==='name'){p.name=e.target.value;rsave();return;}
     if(e.target.dataset.sp){
       p[e.target.dataset.sp]=e.target.value;
-      rsave(); refreshPlan(c,p);
+      rsave(); refreshChips(c,p); refreshPlan(c,p);
       return;
     }
     if(e.target.dataset.k){
@@ -1080,6 +1191,11 @@ document.getElementById('addP').onclick=()=>addPlayer(true);
     const p=saved.roster.find(x=>x.id===c.dataset.id); if(!p) return;
     const cl=e.target.classList, v=e.target.value;
     if(cl.contains('f-role')){p.role=v;rsave();refreshPlan(c,p);return;}
+    if(e.target.dataset.grade){
+      if(!p.spg) p.spg={};
+      if(v) p.spg[e.target.dataset.grade]=v; else delete p.spg[e.target.dataset.grade];
+      rsave(); refreshChips(c,p); refreshPlan(c,p); return;
+    }
     if(cl.contains('f-yr')){
       const oldY=p.yr, newY=Number(v);
       if(oldY!==newY){
@@ -1099,12 +1215,27 @@ document.getElementById('addP').onclick=()=>addPlayer(true);
     rsave(); refreshPlan(c,p);
   });
   box.addEventListener('click',e=>{
-    const b=e.target.closest('[data-act]'); if(!b) return;
+    const b=e.target.closest('[data-act],.chip.pick'); if(!b) return;
     const c=b.closest('.pcard'); const p=saved.roster.find(x=>x.id===c.dataset.id);
     if(!p) return;
     if(b.dataset.act==='del'){
       if(!confirm('刪除「'+(p.name||'未命名')+'」？撤銷唔到。')) return;
       saved.roster=saved.roster.filter(x=>x.id!==p.id); rsave(); drawRoster(); return;
+    }
+    if(b.dataset.act==='sp'){
+      const oldsp=c.querySelector('.spbox');
+      if(oldsp){oldsp.remove();return;}
+      c.insertAdjacentHTML('beforeend',spPickerHTML(p));
+      return;
+    }
+    if(b.classList.contains('pick')){
+      const n=b.dataset.on;
+      if(!Array.isArray(p.spo)) p.spo=[];
+      const i=p.spo.indexOf(n);
+      if(i>=0) p.spo.splice(i,1); else p.spo.push(n);
+      b.classList.toggle('on');
+      rsave(); refreshChips(c,p); refreshPlan(c,p);
+      return;
     }
     if(b.dataset.act==='plan'){
       const oldp=c.querySelector('.pbox');
