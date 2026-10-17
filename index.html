@@ -219,6 +219,11 @@ label.mini{display:inline-block}
 label.mini:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
 .acard{background:var(--paper);border:2px solid #e2ecf7;border-radius:var(--r);
   padding:9px 12px;margin-bottom:8px;font-size:14px}
+.subrow{margin-top:9px;display:flex;flex-wrap:wrap;gap:5px;align-items:center}
+.subrow .sublbl{font-size:12.5px;font-weight:700;color:var(--ink2);margin-right:2px}
+.chip.subp{cursor:pointer;opacity:.45;background:#fff;color:var(--ink3);border-color:#d9e4ef}
+.chip.subp.on{opacity:1;background:#e7f7ea;color:#1a7a35;border-color:#b5e0c0}
+.possub{font-size:12.5px;color:#1a7a35;font-weight:700}
 
 /* 首頁分組：只整理資訊層級，不改功能 */
 .home-hero{
@@ -381,7 +386,9 @@ label.mini:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
 <h3>投手</h3><div id="rP"></div>
 <h3>畢業生</h3><div id="rA"></div>
 <p class="note">卡片上面嘅「年級」可以隨時改。如果改去嘅年級係空嘅，你而家填嘅數會搬過去，方便改錯年級。<br>
-「升年級」會將每個人現時嘅數值抄落下一個年級做起點，三年級就移去畢業生保存。做之前最好先匯出一次備份，因為呢個動作撤銷唔到。</p>
+「升年級」會將每個人現時嘅數值抄落下一個年級做起點，三年級就移去畢業生保存。做之前最好先匯出一次備份，因為呢個動作撤銷唔到。<br>
+個別選手提早走（例如夏天引退），撳佢張卡嘅「畢業」就得；撳錯可以喺畢業生撳「移返在隊」。<br>
+「副位置」可以揀多個，例如捕手兼外野手。外野喺遊戲入面唔分左中右，所以副位置只有「外野手」一格。</p>
 </section>
 <section class="view" id="v-news"><h2>2026 變更點</h2>
 <p class="lede">由 2024-2025 版轉過嚟要知嘅嘢。全部 <span class="tag t26">2026攻略參考</span>，來源係 <a href="https://saiseikojo.com/eikan2026news/" target="_blank" rel="noopener">ゲーミング再生工場 變更點總結</a>（2026-09-27 更新，作者 recycle）同 <a href="https://saiseikojo.com/eikan-kouryaku-9/" target="_blank" rel="noopener">戰績點數同商店（Ver1.30）</a>。純介面改動唔列，只列影響打法嘅。</p>
@@ -1176,6 +1183,18 @@ const SHORT={traj:'彈道',meet:'ミート',power:'パワー',speed:'走力',arm
 
 function uid(){return 'p'+Date.now().toString(36)+Math.random().toString(36).slice(2,6);}
 function isP(p){return p.pos==='投手';}
+/* 副位置：遊戲入面外野唔分左中右，所以副位置用「外野手」一格 */
+const SUBPOS=['捕手','一壘手','二壘手','三壘手','游擊手','外野手'];
+function mainGroup(p){ return /外野/.test(p.pos)?'外野手':p.pos; }
+function subsOf(p){ return Array.isArray(p.sub)?p.sub.filter(x=>x!==mainGroup(p)):[]; }
+function canCatch(p){ return p.pos==='捕手'||subsOf(p).indexOf('捕手')>=0; }
+function subRowHTML(p){
+  const on=subsOf(p);
+  return '<div class="subrow"><span class="sublbl">副位置（可多揀）</span>'+
+    SUBPOS.filter(x=>x!==mainGroup(p)).map(x=>
+      '<button type="button" class="chip subp'+(on.indexOf(x)>=0?' on':'')+
+      '" data-act="sub" data-pos="'+x+'">'+x+'</button>').join('')+'</div>';
+}
 function keysOf(p){return isP(p)?pitcherKeys:batterKeys;}
 function snap(p,y){
   if(!p.snaps) p.snaps={};
@@ -1209,6 +1228,7 @@ function cardHTML(p){
   t+='<select class="w f-bt">'+opt(BT,p.bt)+'</select>';
   t+='<span class="acts"><button class="mini" data-act="plan">快速建議</button>'+
      '<button class="mini" data-act="grow">成長</button>'+
+     '<button class="mini" data-act="grad">畢業</button>'+
      '<button class="mini del" data-act="del">刪</button></span></div>';
   t+='<div class="pg">';
   ks.forEach(k=>{
@@ -1227,7 +1247,9 @@ function cardHTML(p){
     t+='<label>キャッチャー<select class="f-catcher">'+opt(GRADE,p.catcher)+
        '</select></label>';
   }
-  t+='</div><div class="spwrap">'+chipRow(p)+
+  t+='</div>';
+  if(!isP(p)) t+=subRowHTML(p);
+  t+='<div class="spwrap">'+chipRow(p)+
      '<button class="mini" data-act="sp">揀特能</button></div>';
   t+='</div>';
   return t;
@@ -1405,7 +1427,7 @@ function planBoxHTML(p){
       (paused.map(k=>F[k][0]).join('、')||'按以上先後次序。')+'</p>';
     if(v.ph==='unknown')
       t+='<p class="note">長打特能未確認：去能力詳細睇 パワーヒッター／アーチスト。</p>';
-    if(v.pos==='捕手')
+    if(canCatch(p))
       t+='<p class="note">キャッチャー：'+v.catcher+'。練捕球唔會改善呢個等級。</p>';
     if(['E','F','G'].includes(v.throw))
       t+='<p class="note">送球 '+v.throw+'：肩力練習唔會直接升送球等級。</p>';
@@ -1430,11 +1452,14 @@ function refreshPlan(card,p){
 function alumniHTML(){
   if(!saved.alumni.length) return '<p class="empty">仲未有畢業生。</p>';
   return saved.alumni.map(p=>{
-    const s=(p.snaps&&p.snaps[3])?p.snaps[3]:{};
+    const s=(p.snaps&&hasData(p.snaps[3]))?p.snaps[3]:((p.snaps&&p.snaps[p.yr])||{});
     const txt=keysOf(p).map(k=>SHORT[k]+' '+(s[k]===''||s[k]==null?'—':s[k])).join('　');
+    const subs=isP(p)?[]:subsOf(p);
     return '<div class="acard" data-id="'+p.id+'"><b>'+(esc(p.name)||'（未命名）')+
-      '</b>　'+p.pos+'　'+p.bt+'<br>'+txt+
+      '</b>　'+p.pos+(subs.length?' <span class="possub">＋'+subs.join('・')+'</span>':'')+
+      '　'+p.bt+'<br>'+txt+
       '<div style="margin-top:6px"><button class="mini" data-act="agrow">成長</button> '+
+      '<button class="mini" data-act="aback">移返在隊</button> '+
       '<button class="mini del" data-act="adel">刪</button></div></div>';
   }).join('');
 }
@@ -1530,6 +1555,20 @@ document.getElementById('addP').onclick=()=>addPlayer(true);
       if(!confirm('刪除「'+(p.name||'未命名')+'」？撤銷唔到。')) return;
       saved.roster=saved.roster.filter(x=>x.id!==p.id); rsave(); drawRoster(); return;
     }
+    if(b.dataset.act==='grad'){
+      if(!confirm('將「'+(p.name||'未命名')+'」移去畢業生？（之後喺畢業生撳「移返在隊」可以還原）')) return;
+      saved.roster=saved.roster.filter(x=>x.id!==p.id);
+      saved.alumni.push(p); rsave(); drawRoster();
+      rmsg((p.name||'呢個選手')+' 已移去畢業生。'); return;
+    }
+    if(b.dataset.act==='sub'){
+      const n=b.dataset.pos;
+      if(!Array.isArray(p.sub)) p.sub=[];
+      const i=p.sub.indexOf(n);
+      if(i>=0) p.sub.splice(i,1); else p.sub.push(n);
+      b.classList.toggle('on');
+      rsave(); refreshPlan(c,p); return;
+    }
     if(b.dataset.act==='sp'){
       const oldsp=c.querySelector('.spbox');
       if(oldsp){oldsp.remove();return;}
@@ -1570,6 +1609,11 @@ document.getElementById('rA').addEventListener('click',e=>{
   if(b.dataset.act==='adel'){
     if(!confirm('刪除畢業生「'+(p.name||'未命名')+'」？')) return;
     saved.alumni=saved.alumni.filter(x=>x.id!==p.id); rsave(); drawRoster(); return;
+  }
+  if(b.dataset.act==='aback'){
+    saved.alumni=saved.alumni.filter(x=>x.id!==p.id);
+    saved.roster.push(p); rsave(); drawRoster();
+    rmsg((p.name||'呢個選手')+' 已移返在隊。'); return;
   }
   const old=c.querySelector('.gbox');
   if(old){old.remove();return;}
