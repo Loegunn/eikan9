@@ -223,6 +223,7 @@ label.mini:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
 .subrow .sublbl{font-size:12.5px;font-weight:700;color:var(--ink2);margin-right:2px}
 .chip.subp{cursor:pointer;opacity:.45;background:#fff;color:var(--ink3);border-color:#d9e4ef}
 .chip.subp.on{opacity:1;background:#e7f7ea;color:#1a7a35;border-color:#b5e0c0}
+.chip.subp.mainp{cursor:default;background:#1a7a35;color:#fff;border-color:#1a7a35}
 .possub{font-size:12.5px;color:#1a7a35;font-weight:700}
 
 /* 首頁分組：只整理資訊層級，不改功能 */
@@ -1191,6 +1192,7 @@ function canCatch(p){ return p.pos==='捕手'||subsOf(p).indexOf('捕手')>=0; }
 function subRowHTML(p){
   const on=subsOf(p);
   return '<div class="subrow"><span class="sublbl">副位置（可多揀）</span>'+
+    '<span class="chip subp on mainp" title="主位置喺上面改">'+mainGroup(p)+'（主位置）</span>'+
     SUBPOS.filter(x=>x!==mainGroup(p)).map(x=>
       '<button type="button" class="chip subp'+(on.indexOf(x)>=0?' on':'')+
       '" data-act="sub" data-pos="'+x+'">'+x+'</button>').join('')+'</div>';
